@@ -10,7 +10,7 @@ import {
   TemplateResult,
 } from 'lit-element';
 import './components/time-unit';
-import { CARD_VERSION, STYLE_VARIABLES } from './const';
+import { CARD_VERSION, STYLE_VARIABLES, CARD_SIZE } from './const';
 import { Hour, Minute } from './models';
 import { Partial } from './partials';
 import { TimePickerCardConfig } from './types';
@@ -85,7 +85,7 @@ export class TimePickerCard extends LitElement {
   }
 
   getCardSize(): number {
-    return 3;
+    return CARD_SIZE;
   }
 
   private callHassService(): Promise<void> {

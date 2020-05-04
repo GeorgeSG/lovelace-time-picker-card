@@ -1,4 +1,4 @@
-import { TimeUnit } from './TimeUnit';
+import { TimeUnit } from './time-unit';
 
 export class Minute extends TimeUnit {
   private static readonly DEFAULT_STEP = 5;

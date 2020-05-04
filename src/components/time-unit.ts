@@ -19,19 +19,21 @@ export class TimeUnitComponent extends LitElement {
       throw new Error('Missing unit in time-unit. This should never happen :)');
     }
 
-    return html`<div class="time-unit">
-      ${this.renderStepChanger(Direction.UP)}
-      <input
-        class="time-input"
-        type="number"
-        placeholder="MM"
-        min="0"
-        max="60"
-        .value="${this.unit.toString()}"
-        @change=${this.onInputChange}
-      />
-      ${this.renderStepChanger(Direction.DOWN)}
-    </div>`;
+    return html`
+      <div class="time-unit">
+        ${this.renderStepChanger(Direction.UP)}
+        <input
+          class="time-input"
+          type="number"
+          placeholder="MM"
+          min="0"
+          max="60"
+          .value="${this.unit.toString()}"
+          @change=${this.onInputChange}
+        />
+        ${this.renderStepChanger(Direction.DOWN)}
+      </div>
+    `;
   }
 
   onInputChange({ target: { value } }: { target: HTMLInputElement }): void {

@@ -1,3 +1,3 @@
-export { TimeUnit } from './TimeUnit';
-export { Hour } from './Hour';
-export { Minute } from './Minute';
+export { TimeUnit } from './time-unit';
+export { Hour } from './hour';
+export { Minute } from './minute';
