@@ -60,8 +60,9 @@ export class TimePickerCard extends LitElement {
       );
     }
 
-    this.hour = new Hour(this.entity?.attributes.hour ?? 0, this.config.hour_step);
-    this.minute = new Minute(this.entity?.attributes.minute ?? 0, this.config.minute_step);
+    const { hour, minute } = this.entity?.attributes ?? { hour: 0, minute: 0 };
+    this.hour = new Hour(hour, this.config.hour_step);
+    this.minute = new Minute(minute, this.config.minute_step);
 
     return html`
       <ha-card class="time-picker-ha-card">
