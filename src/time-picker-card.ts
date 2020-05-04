@@ -65,9 +65,9 @@ export class TimePickerCard extends LitElement {
 
     return html`
       <ha-card class="time-picker-ha-card">
-        <time-unit .unit=${this.hour} @update=${this.serviceFn.bind(this)}></time-unit>
+        <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
         <div class="time-separator">:</div>
-        <time-unit .unit=${this.minute} @update=${this.serviceFn.bind(this)}></time-unit>
+        <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
       </ha-card>
     `;
   }
@@ -88,7 +88,7 @@ export class TimePickerCard extends LitElement {
     return 3;
   }
 
-  private serviceFn(): Promise<void> {
+  private callHassService(): Promise<void> {
     if (!this.hass) {
       throw new Error('Unable to update datetime');
     }
