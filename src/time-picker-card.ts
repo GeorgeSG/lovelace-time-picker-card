@@ -1,10 +1,18 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
-import { CSSResult, customElement, html, LitElement, property, TemplateResult } from 'lit-element';
-import { CARD_VERSION } from './const';
+import {
+  css,
+  CSSResult,
+  customElement,
+  html,
+  LitElement,
+  property,
+  TemplateResult,
+} from 'lit-element';
+import './components/time-unit';
+import { CARD_VERSION, STYLE_VARIABLES } from './const';
 import { Hour, Minute } from './models';
 import { Partial } from './partials';
-import { styles, styleVariables } from './styles';
 import { TimePickerCardConfig } from './types';
 
 console.info(
@@ -19,6 +27,14 @@ export class TimePickerCard extends LitElement {
   @property() private config?: TimePickerCardConfig;
   @property() private hour?: Hour;
   @property() private minute?: Minute;
+
+  connectedCallback(): void {
+    super.connectedCallback();
+
+    Object.entries(STYLE_VARIABLES).forEach(([variable, value]) =>
+      this.style.setProperty(variable, value)
+    );
+  }
 
   private get entity(): HassEntity | undefined {
     if (!this.config) {
@@ -44,15 +60,14 @@ export class TimePickerCard extends LitElement {
       );
     }
 
-    this.setStyleVarialbes();
     this.hour = new Hour(this.entity?.attributes.hour ?? 0, this.config.hour_step);
     this.minute = new Minute(this.entity?.attributes.minute ?? 0, this.config.minute_step);
 
     return html`
       <ha-card class="time-picker-ha-card">
-        ${Partial.unit(this.hour, this.serviceFn.bind(this))}
+        <time-unit .unit=${this.hour} @update=${this.serviceFn.bind(this)}></time-unit>
         <div class="time-separator">:</div>
-        ${Partial.unit(this.minute, this.serviceFn.bind(this))}
+        <time-unit .unit=${this.minute} @update=${this.serviceFn.bind(this)}></time-unit>
       </ha-card>
     `;
   }
@@ -86,13 +101,15 @@ export class TimePickerCard extends LitElement {
     });
   }
 
-  private setStyleVarialbes(): void {
-    Object.entries(styleVariables).forEach(([variable, value]) =>
-      this.style.setProperty(variable, value)
-    );
-  }
-
   static get styles(): CSSResult {
-    return styles;
+    return css`
+      .time-picker-ha-card {
+        padding: 16px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+      }
+    `;
   }
 }
