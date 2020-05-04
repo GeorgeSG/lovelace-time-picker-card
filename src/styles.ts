@@ -1,5 +1,9 @@
 import { css } from 'lit-element';
 
+export const styleVariables = {
+  '--time-picker-card-background-color': 'rgb(37, 47, 68)',
+};
+
 export const styles = css`
   .time-picker-ha-card {
     padding: 16px;
@@ -16,27 +20,19 @@ export const styles = css`
     padding: 0 8px;
   }
 
-  .time-picker-icon-up,
-  .time-picker-icon-down {
+  .time-picker-icon {
+    width: 30px;
+    padding: 8px;
+    text-align: center;
     cursor: pointer;
-  }
-
-  .time-picker-icon-up {
-    padding: 8px;
-  }
-
-  .time-picker-icon-down {
-    margin-top: 8px;
-    padding: 8px;
   }
 
   .time-input {
     width: 30px;
     padding: 8px;
-    background: var(--card-background-color, transparent);
+    background: var(--time-picker-card-background-color);
     border: 0;
     color: var(--text-color, #fff);
-    border-bottom: 1px solid var(--text-color, #fff);
     text-align: center;
     font-size: 1em;
   }

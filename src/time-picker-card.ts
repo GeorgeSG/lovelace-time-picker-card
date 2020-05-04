@@ -4,12 +4,12 @@ import { CSSResult, customElement, html, LitElement, property, TemplateResult } 
 import { CARD_VERSION } from './const';
 import { Hour, Minute, TimeUnit } from './models';
 import { Partial } from './partials';
-import { styles } from './styles';
+import { styles, styleVariables } from './styles';
 import { Direction, TimePickerCardConfig } from './types';
 
 console.info(
-  `%c  TIME-PICKER-CARD \n%c  Version ${CARD_VERSION}    `,
-  'color: darkgreen; font-weight: bold; background: black',
+  `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
+  'color: orange; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray'
 );
 
@@ -44,6 +44,7 @@ export class TimePickerCard extends LitElement {
       );
     }
 
+    this.setStyleVarialbes();
     this.hour = new Hour(this.entity?.attributes.hour ?? 0, this.config.hour_step);
     this.minute = new Minute(this.entity?.attributes.minute ?? 0, this.config.minute_step);
 
@@ -114,10 +115,8 @@ export class TimePickerCard extends LitElement {
       this.callService();
     };
 
-    const className = `time-picker-icon-${direction}`;
-
     return html`
-      <div class=${className} @click=${onIconClick}>
+      <div class="time-picker-icon" @click=${onIconClick}>
         <ha-icon .icon="mdi:arrow-${direction}"></ha-icon>
         <mwc-ripple id="ripple"></mwc-ripple>
       </div>
@@ -135,6 +134,12 @@ export class TimePickerCard extends LitElement {
       entity_id: this.entity?.entity_id,
       time,
     });
+  }
+
+  private setStyleVarialbes(): void {
+    Object.entries(styleVariables).forEach(([variable, value]) =>
+      this.style.setProperty(variable, value)
+    );
   }
 
   static get styles(): CSSResult {
