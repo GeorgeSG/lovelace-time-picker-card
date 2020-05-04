@@ -2,25 +2,25 @@ import { HomeAssistant } from 'custom-card-helpers';
 import { CSSResult, customElement, html, LitElement, property, TemplateResult } from 'lit-element';
 import { CARD_VERSION } from './const';
 import { styles } from './styles';
-import { TemplateCardConfig } from './types';
+import { TimePickerCardConfig } from './types';
 
 console.info(
-  `%c  TEMPLATE-CARD \n%c  Version ${CARD_VERSION}    `,
+  `%c  TIME-PICKER-CARD \n%c  Version ${CARD_VERSION}    `,
   'color: darkgreen; font-weight: bold; background: black',
   'color: white; font-weight: bold; background: dimgray'
 );
 
-@customElement('template-card')
-export class TemplateCard extends LitElement {
+@customElement('time-picker-card')
+export class TimePickerCard extends LitElement {
   @property() private hass?: HomeAssistant;
-  @property() private config?: TemplateCardConfig;
+  @property() private config?: TimePickerCardConfig;
 
   render(): TemplateResult | null {
     if (!this.config || !this.hass) {
       return null;
     }
 
-    return html`<ha-card>TemplateCard</ha-card>`;
+    return html`<ha-card>TimePickerCard</ha-card>`;
   }
 
   setConfig(config): void {

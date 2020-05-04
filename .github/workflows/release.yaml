@@ -11,7 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build template-card.js
+      - name: Build time-picker-card.js
         run: |
           npm install
           npm run build
@@ -19,6 +19,6 @@ jobs:
       - name: Upload to release
         uses: shopify/upload-to-release@1.0.0
         with:
-          name: template-card.js
-          path: dist/template-card.js
+          name: time-picker-card.js
+          path: dist/time-picker-card.js
           repo-token: ${{ secrets.GITHUB_TOKEN }}

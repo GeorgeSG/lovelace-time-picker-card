@@ -25,8 +25,8 @@ assignees: ''
   Home Assistant frontend: Developer tools -> Info.
 -->
 
-- template-card release with the issue:
-- Last working template-card release (if known):
+- time-picker-card release with the issue:
+- Last working time-picker-card release (if known):
 - Browser and Operating System:
 
 ### Problem-relevant configuration

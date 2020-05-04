@@ -1,8 +1,8 @@
 {
-  "name": "template-card",
+  "name": "time-picker-card",
   "version": "0.0.0",
   "author": "Georgi Gardev <georgi@gardev.com>",
-  "description": "Lovelace template-card",
+  "description": "Lovelace time-picker-card",
   "keywords": [
     "home-assistant",
     "homeassistant",
@@ -13,7 +13,7 @@
     "lovelace-custom-card"
   ],
   "license": "MIT",
-  "repository": "git@github.com:GeorgeSG/lovelace-template-card.git",
+  "repository": "git@github.com:GeorgeSG/lovelace-time-picker-card.git",
   "scripts": {
     "start": "rollup -c --watch",
     "build": "npm run lint && npm run rollup",

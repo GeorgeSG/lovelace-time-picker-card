@@ -1,5 +1,5 @@
 {
-  "name": "Template Card",
+  "name": "Time Picker Card",
   "render_readme": true,
-  "filename": "template-card.js"
+  "filename": "time-picker-card.js"
 }

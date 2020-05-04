@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Suggest a feature for template-card
+about: Suggest a feature for time-picker-card
 title: ''
 labels: feature request
 assignees: ''

@@ -18,7 +18,7 @@ const serveOptions = {
 };
 
 export default {
-  input: 'src/template-card.ts',
+  input: 'src/time-picker-card.ts',
   output: {
     dir: './dist',
     format: 'es',

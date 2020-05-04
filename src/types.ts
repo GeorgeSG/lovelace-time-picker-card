@@ -1,3 +1,3 @@
-export interface TemplateCardConfig {
+export interface TimePickerCardConfig {
   entity: string;
 }
