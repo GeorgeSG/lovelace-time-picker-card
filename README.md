@@ -1,4 +1,4 @@
-# Lovelace Time Picker Card by [@georgesg](https://www.github.com/georgesg)
+# Time Picker Card by [@georgesg](https://www.github.com/georgesg)
 
 [![hacs_badge][hacs-shield]][hacs]
 [![GitHub Release][releases-shield]][releases]
@@ -27,6 +27,14 @@ resources:
 type: 'custom:time-picker-card'
 ```
 
+## Meta
+
+**Georgi Gardev**
+
+- [gar.dev](https://gar.dev)
+- [![GitHub][github-icon]](https://github.com/GeorgeSG/) [GeorgeSG](https://github.com/GeorgeSG/)
+- [![Twitter][twitter-icon]](https://twitter.com/georgesg92) [@georgesg92](https://twitter.com/georgesg92)
+
 [commits-shield]: https://img.shields.io/github/commit-activity/y/GeorgeSG/lovelace-time-picker-card?style=flat-square
 [commits]: https://github.com/GeorgeSG/lovelace-time-picker-card/commits/master
 [license-shield]: https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?style=flat-square
@@ -37,3 +45,5 @@ type: 'custom:time-picker-card'
 [releases]: https://github.com/GeorgeSG/lovelace-time-picker-card/releases
 [hacs-shield]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square
 [hacs]: https://github.com/custom-components/hacs
+[twitter-icon]: http://i.imgur.com/wWzX9uB.png
+[github-icon]: http://i.imgur.com/9I6NRUm.png
