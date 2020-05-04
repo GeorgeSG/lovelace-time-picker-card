@@ -9,8 +9,8 @@ import {
   property,
   TemplateResult,
 } from 'lit-element';
-import './components/time-unit';
-import { CARD_VERSION, STYLE_VARIABLES, CARD_SIZE } from './const';
+import './components/time-unit.component';
+import { CARD_SIZE, CARD_VERSION, STYLE_VARIABLES } from './const';
 import { Hour, Minute } from './models';
 import { Partial } from './partials';
 import { TimePickerCardConfig } from './types';
