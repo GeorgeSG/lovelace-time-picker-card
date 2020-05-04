@@ -13,7 +13,7 @@ export const styles = css`
     justify-content: center;
   }
 
-  .time-form {
+  .time-unit {
     display: flex;
     flex-direction: column;
     align-items: center;

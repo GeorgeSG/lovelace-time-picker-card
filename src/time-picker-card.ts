@@ -2,10 +2,10 @@ import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import { CSSResult, customElement, html, LitElement, property, TemplateResult } from 'lit-element';
 import { CARD_VERSION } from './const';
-import { Hour, Minute, TimeUnit } from './models';
+import { Hour, Minute } from './models';
 import { Partial } from './partials';
 import { styles, styleVariables } from './styles';
-import { Direction, TimePickerCardConfig } from './types';
+import { TimePickerCardConfig } from './types';
 
 console.info(
   `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
@@ -50,35 +50,9 @@ export class TimePickerCard extends LitElement {
 
     return html`
       <ha-card class="time-picker-ha-card">
-        <div class="time-form">
-          ${this.renderStepChanger(Direction.UP, this.hour)}
-          <input
-            class="time-input"
-            type="number"
-            placeholder="HH"
-            min="0"
-            max="24"
-            .value=${this.hour.toString()}
-            @change=${this.onHourChange}
-          />
-          ${this.renderStepChanger(Direction.DOWN, this.hour)}
-        </div>
-        <div class="time-separator">
-          :
-        </div>
-        <div class="time-form">
-          ${this.renderStepChanger(Direction.UP, this.minute)}
-          <input
-            class="time-input"
-            type="number"
-            placeholder="MM"
-            min="0"
-            max="60"
-            .value="${this.minute.toString()}"
-            @change=${this.onMinuteChange}
-          />
-          ${this.renderStepChanger(Direction.DOWN, this.minute)}
-        </div>
+        ${Partial.unit(this.hour, this.serviceFn.bind(this))}
+        <div class="time-separator">:</div>
+        ${Partial.unit(this.minute, this.serviceFn.bind(this))}
       </ha-card>
     `;
   }
@@ -99,31 +73,7 @@ export class TimePickerCard extends LitElement {
     return 3;
   }
 
-  onHourChange({ target: { value } }: { target: HTMLInputElement }): void {
-    this.hour!.setStringValue(value);
-    this.callService();
-  }
-
-  onMinuteChange({ target: { value } }: { target: HTMLInputElement }): void {
-    this.minute!.setStringValue(value);
-    this.callService();
-  }
-
-  private renderStepChanger(direction: Direction, unit: TimeUnit): TemplateResult {
-    const onIconClick = (): void => {
-      unit.stepUpdate(direction);
-      this.callService();
-    };
-
-    return html`
-      <div class="time-picker-icon" @click=${onIconClick}>
-        <ha-icon .icon="mdi:arrow-${direction}"></ha-icon>
-        <mwc-ripple id="ripple"></mwc-ripple>
-      </div>
-    `;
-  }
-
-  private callService(): Promise<void> {
+  private serviceFn(): Promise<void> {
     if (!this.hass) {
       throw new Error('Unable to update datetime');
     }
