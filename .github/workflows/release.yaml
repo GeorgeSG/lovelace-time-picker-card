@@ -1,0 +1,24 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release:
+    name: Build and upload
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build template-card.js
+        run: |
+          npm install
+          npm run build
+
+      - name: Upload to release
+        uses: shopify/upload-to-release@1.0.0
+        with:
+          name: template-card.js
+          path: dist/template-card.js
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
