@@ -23,10 +23,10 @@ console.info(
 
 @customElement('time-picker-card')
 export class TimePickerCard extends LitElement {
-  @property() private hass?: HomeAssistant;
-  @property() private config?: TimePickerCardConfig;
-  @property() private hour?: Hour;
-  @property() private minute?: Minute;
+  @property() private hass!: HomeAssistant;
+  @property() private config!: TimePickerCardConfig;
+  @property() private hour!: Hour;
+  @property() private minute!: Minute;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -36,20 +36,12 @@ export class TimePickerCard extends LitElement {
     );
   }
 
-  private get entity(): HassEntity | undefined {
-    if (!this.config) {
-      return;
-    }
-
-    return this.hass?.states[this.config!.entity];
+  private get entity(): HassEntity {
+    return this.hass.states[this.config.entity];
   }
 
   render(): TemplateResult | null {
-    if (!this.config || !this.hass) {
-      return null;
-    }
-
-    if (!this.entity?.entity_id.startsWith('input_datetime')) {
+    if (!this.entity.entity_id.startsWith('input_datetime')) {
       return Partial.error('You must set an input_datetime entity', this.config);
     }
 
@@ -60,7 +52,7 @@ export class TimePickerCard extends LitElement {
       );
     }
 
-    const { hour, minute } = this.entity?.attributes ?? { hour: 0, minute: 0 };
+    const { hour, minute } = this.entity.attributes;
     this.hour = new Hour(hour, this.config.hour_step);
     this.minute = new Minute(minute, this.config.minute_step);
 
@@ -94,10 +86,10 @@ export class TimePickerCard extends LitElement {
       throw new Error('Unable to update datetime');
     }
 
-    const time = `${this.hour!.value}:${this.minute!.value}:00`;
+    const time = `${this.hour.value}:${this.minute.value}:00`;
 
     return this.hass.callService('input_datetime', 'set_datetime', {
-      entity_id: this.entity?.entity_id,
+      entity_id: this.entity.entity_id,
       time,
     });
   }

@@ -12,13 +12,9 @@ import { Direction } from '../types';
 
 @customElement('time-unit')
 export class TimeUnitComponent extends LitElement {
-  @property() private unit?: TimeUnit;
+  @property() private unit!: TimeUnit;
 
   render(): TemplateResult {
-    if (!this.unit) {
-      throw new Error('Missing unit in time-unit. This should never happen :)');
-    }
-
     return html`
       <div class="time-unit">
         ${this.renderStepChanger(Direction.UP)}
@@ -37,12 +33,12 @@ export class TimeUnitComponent extends LitElement {
   }
 
   onInputChange({ target: { value } }: { target: HTMLInputElement }): void {
-    this.unit!.setStringValue(value);
+    this.unit.setStringValue(value);
     this.emitUpdate();
   }
 
   onStepChangerClick(direction: Direction): void {
-    this.unit!.stepUpdate(direction);
+    this.unit.stepUpdate(direction);
     this.emitUpdate();
   }
 
