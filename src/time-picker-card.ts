@@ -11,7 +11,8 @@ import {
 } from 'lit-element';
 import './components/time-unit.component';
 import { CARD_SIZE, CARD_VERSION, STYLE_VARIABLES } from './const';
-import { Hour, Minute } from './models';
+import { Hour } from './models/hour';
+import { Minute } from './models/minute';
 import { Partial } from './partials';
 import { TimePickerCardConfig } from './types';
 
@@ -36,11 +37,15 @@ export class TimePickerCard extends LitElement {
     );
   }
 
-  private get entity(): HassEntity {
+  private get entity(): HassEntity | undefined {
     return this.hass.states[this.config.entity];
   }
 
   render(): TemplateResult | null {
+    if (!this.entity) {
+      return Partial.error('Entity not found', this.config);
+    }
+
     if (!this.entity.entity_id.startsWith('input_datetime')) {
       return Partial.error('You must set an input_datetime entity', this.config);
     }
@@ -52,7 +57,7 @@ export class TimePickerCard extends LitElement {
       );
     }
 
-    const { hour, minute } = this.entity.attributes;
+    const { hour, minute } = this.entity!.attributes;
     this.hour = new Hour(hour, this.config.hour_step);
     this.minute = new Minute(minute, this.config.minute_step);
 
@@ -89,7 +94,7 @@ export class TimePickerCard extends LitElement {
     const time = `${this.hour.value}:${this.minute.value}:00`;
 
     return this.hass.callService('input_datetime', 'set_datetime', {
-      entity_id: this.entity.entity_id,
+      entity_id: this.entity!.entity_id,
       time,
     });
   }

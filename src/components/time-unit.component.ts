@@ -7,7 +7,7 @@ import {
   property,
   TemplateResult,
 } from 'lit-element';
-import { TimeUnit } from '../models';
+import { TimeUnit } from '../models/time-unit';
 import { Direction } from '../types';
 
 @customElement('time-unit')
