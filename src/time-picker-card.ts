@@ -1,4 +1,4 @@
-import { HomeAssistant, computeDomain } from 'custom-card-helpers';
+import { computeDomain, HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import {
   css,
@@ -11,7 +11,7 @@ import {
 } from 'lit-element';
 import './components/time-period.component';
 import './components/time-unit.component';
-import { CARD_SIZE, CARD_VERSION } from './const';
+import { CARD_SIZE, CARD_VERSION, ENTITY_DOMAIN } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
@@ -25,8 +25,6 @@ console.info(
 
 @customElement('time-picker-card')
 export class TimePickerCard extends LitElement {
-  private static readonly ENTITY_DOMAIN = 'input_datetime';
-
   @property() private hass!: HomeAssistant;
   @property() private config!: TimePickerCardConfig;
   @property() private hour!: Hour;
@@ -54,13 +52,13 @@ export class TimePickerCard extends LitElement {
       return Partial.error('Entity not found', this.config);
     }
 
-    if (computeDomain(this.entity.entity_id) !== TimePickerCard.ENTITY_DOMAIN) {
-      return Partial.error(`You must set an ${TimePickerCard.ENTITY_DOMAIN} entity`, this.config);
+    if (computeDomain(this.entity.entity_id) !== ENTITY_DOMAIN) {
+      return Partial.error(`You must set an ${ENTITY_DOMAIN} entity`, this.config);
     }
 
     if (!this.entity.attributes.has_time) {
       return Partial.error(
-        `You must set an ${TimePickerCard.ENTITY_DOMAIN} entity that sets has_time: true`,
+        `You must set an ${ENTITY_DOMAIN} entity that sets has_time: true`,
         this.config
       );
     }
@@ -121,7 +119,7 @@ export class TimePickerCard extends LitElement {
 
     const time = `${this.hour.value}:${this.minute.value}:00`;
 
-    return this.hass.callService(TimePickerCard.ENTITY_DOMAIN, 'set_datetime', {
+    return this.hass.callService(ENTITY_DOMAIN, 'set_datetime', {
       entity_id: this.entity!.entity_id,
       time,
     });

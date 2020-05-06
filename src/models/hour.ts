@@ -1,16 +1,16 @@
-import { TimeUnit } from './time-unit';
+import { DEFAULT_HOUR_STEP } from '../const';
 import { HourMode } from '../types';
+import { TimeUnit } from './time-unit';
 
 export class Hour extends TimeUnit {
-  private static readonly DEFAULT_STEP = 1;
-  private static readonly MAX = 24;
+  private static readonly VALUE_LIMIT = 24;
 
-  constructor(value: number, step = Hour.DEFAULT_STEP, private hourMode: HourMode) {
-    super(value, step, Hour.MAX);
+  constructor(value: number, step = DEFAULT_HOUR_STEP, private hourMode: HourMode) {
+    super(value, step, Hour.VALUE_LIMIT);
   }
 
   get maxValue(): number {
-    return this.hourMode || Hour.MAX;
+    return this.hourMode || Hour.VALUE_LIMIT;
   }
 
   togglePeriod(): void {
