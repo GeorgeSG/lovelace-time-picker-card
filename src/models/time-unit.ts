@@ -1,7 +1,23 @@
 import { Direction } from '../types';
 
 export abstract class TimeUnit {
-  constructor(private _value: number, private _step: number, private _limit: number) {}
+  /**
+   * Return true if the valueStr can be set as a value of this instance.
+   */
+  protected abstract isValidString(valueStr: string): boolean;
+
+  /**
+   * The max allowed value for this instance. Used for UI validation.
+   */
+  abstract maxValue: number;
+
+  /**
+   * Create a new instance of a TimeUnit
+   * @param _value current value
+   * @param _step how much to increase / decrease the value when step-changing
+   * @param _limit value upper limit
+   */
+  constructor(private _value: number, protected _step: number, protected _limit: number) {}
 
   get value(): number {
     return this._value;
@@ -29,12 +45,7 @@ export abstract class TimeUnit {
     return this.value < 10 ? `0${this.value}` : this.value.toString();
   }
 
-  private isValidString(valueStr: string): boolean {
-    const value = parseInt(valueStr);
-    return !isNaN(value) && value >= 0 && value <= this._limit;
-  }
-
-  private setValue(newValue: number): void {
+  protected setValue(newValue: number): void {
     if (newValue >= this._limit || newValue < 0) {
       newValue = (newValue + this._limit) % this._limit;
     }

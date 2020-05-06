@@ -12,6 +12,8 @@ import { Direction } from '../types';
 
 @customElement('time-unit')
 export class TimeUnitComponent extends LitElement {
+  static readonly EVENT_UPDATE = 'update';
+
   @property() private unit!: TimeUnit;
 
   render(): TemplateResult {
@@ -23,7 +25,7 @@ export class TimeUnitComponent extends LitElement {
           type="number"
           placeholder="MM"
           min="0"
-          max="60"
+          max=${this.unit.maxValue}
           .value="${this.unit.toString()}"
           @change=${this.onInputChange}
         />
@@ -43,7 +45,7 @@ export class TimeUnitComponent extends LitElement {
   }
 
   private emitUpdate(): void {
-    const event = new CustomEvent('update');
+    const event = new CustomEvent(TimeUnitComponent.EVENT_UPDATE);
     this.dispatchEvent(event);
   }
 
@@ -70,15 +72,16 @@ export class TimeUnitComponent extends LitElement {
         padding: 8px;
         text-align: center;
         cursor: pointer;
+        color: var(--tpc-icon-color);
       }
 
       .time-input {
         width: 30px;
         padding: 8px 8px 6px;
-        background: var(--time-picker-card-background-color);
+        background: var(--tpc-elements-background-color);
         border: 0;
-        border-bottom: 2px solid var(--time-picker-card-background-color);
-        color: var(--text-color, #fff);
+        border-bottom: 2px solid var(--tpc-elements-background-color);
+        color: var(--tpc-text-color, #fff);
         text-align: center;
         font-size: 1em;
         -moz-appearance: textfield;

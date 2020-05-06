@@ -9,12 +9,13 @@ import {
   property,
   TemplateResult,
 } from 'lit-element';
+import './components/time-period.component';
 import './components/time-unit.component';
-import { CARD_SIZE, CARD_VERSION, STYLE_VARIABLES } from './const';
+import { CARD_SIZE, CARD_VERSION } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
-import { TimePickerCardConfig } from './types';
+import { Period, TimePickerCardConfig } from './types';
 
 console.info(
   `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
@@ -28,14 +29,7 @@ export class TimePickerCard extends LitElement {
   @property() private config!: TimePickerCardConfig;
   @property() private hour!: Hour;
   @property() private minute!: Minute;
-
-  connectedCallback(): void {
-    super.connectedCallback();
-
-    Object.entries(STYLE_VARIABLES).forEach(([variable, value]) =>
-      this.style.setProperty(variable, value)
-    );
-  }
+  @property() private period!: Period;
 
   private get entity(): HassEntity | undefined {
     return this.hass.states[this.config.entity];
@@ -47,6 +41,10 @@ export class TimePickerCard extends LitElement {
 
   private get name(): string | undefined {
     return this.config.name || this.entity?.attributes.friendly_name;
+  }
+
+  private get shouldShowPeriod(): boolean {
+    return this.config.hour_mode === 12;
   }
 
   render(): TemplateResult | null {
@@ -66,16 +64,24 @@ export class TimePickerCard extends LitElement {
     }
 
     const { hour, minute } = this.entity!.attributes;
-    this.hour = new Hour(hour, this.config.hour_step);
+    this.hour = new Hour(hour, this.config.hour_step, this.config.hour_mode);
     this.minute = new Minute(minute, this.config.minute_step);
+    this.period = this.hour.value >= 12 ? Period.PM : Period.AM;
 
     return html`
-      <ha-card class="time-picker-ha-card">
+      <ha-card>
         ${this.shouldShowName ? Partial.header(this.name!) : ''}
         <div class="time-picker-content">
           <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
           <div class="time-separator">:</div>
           <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
+
+          ${this.shouldShowPeriod
+            ? html`<time-period
+                .period=${this.period}
+                @toggle=${this.onPeriodToggle}
+              ></time-period>`
+            : ''}
         </div>
       </ha-card>
     `;
@@ -90,11 +96,20 @@ export class TimePickerCard extends LitElement {
       throw new Error('You must set an entity');
     }
 
+    if (config.hour_mode && config.hour_mode !== 12 && config.hour_mode !== 24) {
+      throw new Error('Invalid hour_mode: select either 12 or 24');
+    }
+
     this.config = config;
   }
 
   getCardSize(): number {
     return CARD_SIZE;
+  }
+
+  private onPeriodToggle(): void {
+    this.hour.togglePeriod();
+    this.callHassService();
   }
 
   private callHassService(): Promise<void> {
@@ -112,12 +127,21 @@ export class TimePickerCard extends LitElement {
 
   static get styles(): CSSResult {
     return css`
-      .time-picker-ha-card {
+      :host {
+        --tpc-elements-background-color: var(
+          --time-picker-elements-background-color,
+          var(--dark-primary-color)
+        );
+
+        --tpc-icon-color: var(--time-picker-icon-color, var(--primary-text-color));
+        --tpc-text-color: var(--time-picker-text-color, #fff);
+        --tpc-accent-color: var(--time-picker-accent-color, var(--accent-color));
       }
 
       .time-picker-header {
         padding: 16px;
-        background-color: var(--time-picker-card-background-color);
+        color: var(--tpc-text-color, #fff);
+        background-color: var(--tpc-elements-background-color);
         font-size: 1em;
         text-align: center;
       }
