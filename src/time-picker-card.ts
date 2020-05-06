@@ -41,6 +41,14 @@ export class TimePickerCard extends LitElement {
     return this.hass.states[this.config.entity];
   }
 
+  private get shouldShowName(): boolean {
+    return Boolean(this.config.hide?.name) === false && Boolean(this.name);
+  }
+
+  private get name(): string | undefined {
+    return this.config.name || this.entity?.attributes.friendly_name;
+  }
+
   render(): TemplateResult | null {
     if (!this.entity) {
       return Partial.error('Entity not found', this.config);
@@ -63,9 +71,12 @@ export class TimePickerCard extends LitElement {
 
     return html`
       <ha-card class="time-picker-ha-card">
-        <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
-        <div class="time-separator">:</div>
-        <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
+        ${this.shouldShowName ? Partial.header(this.name!) : ''}
+        <div class="time-picker-content">
+          <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
+          <div class="time-separator">:</div>
+          <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
+        </div>
       </ha-card>
     `;
   }
@@ -102,7 +113,17 @@ export class TimePickerCard extends LitElement {
   static get styles(): CSSResult {
     return css`
       .time-picker-ha-card {
+      }
+
+      .time-picker-header {
         padding: 16px;
+        background-color: var(--time-picker-card-background-color);
+        font-size: 1em;
+        text-align: center;
+      }
+
+      .time-picker-content {
+        padding: 8px 16px 16px;
         display: flex;
         flex-direction: row;
         align-items: center;
