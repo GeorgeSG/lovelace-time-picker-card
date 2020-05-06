@@ -1,4 +1,4 @@
-import { HomeAssistant } from 'custom-card-helpers';
+import { HomeAssistant, computeDomain } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import {
   css,
@@ -25,6 +25,8 @@ console.info(
 
 @customElement('time-picker-card')
 export class TimePickerCard extends LitElement {
+  private static readonly ENTITY_DOMAIN = 'input_datetime';
+
   @property() private hass!: HomeAssistant;
   @property() private config!: TimePickerCardConfig;
   @property() private hour!: Hour;
@@ -52,13 +54,13 @@ export class TimePickerCard extends LitElement {
       return Partial.error('Entity not found', this.config);
     }
 
-    if (!this.entity.entity_id.startsWith('input_datetime')) {
-      return Partial.error('You must set an input_datetime entity', this.config);
+    if (computeDomain(this.entity.entity_id) !== TimePickerCard.ENTITY_DOMAIN) {
+      return Partial.error(`You must set an ${TimePickerCard.ENTITY_DOMAIN} entity`, this.config);
     }
 
     if (!this.entity.attributes.has_time) {
       return Partial.error(
-        'You must set an input_datetime entity that sets has_time: true',
+        `You must set an ${TimePickerCard.ENTITY_DOMAIN} entity that sets has_time: true`,
         this.config
       );
     }
