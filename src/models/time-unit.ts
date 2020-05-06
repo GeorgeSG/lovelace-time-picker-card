@@ -1,8 +1,11 @@
 import { Direction } from '../types';
 
+/**
+ * Represents a single unit of a datetime oobject - e.g. hours or minutes.
+ */
 export abstract class TimeUnit {
   /**
-   * Return true if the valueStr can be set as a value of this instance.
+   * Whether {@param valueStr} can be set as a value of this instance.
    */
   protected abstract isValidString(valueStr: string): boolean;
 
@@ -23,26 +26,34 @@ export abstract class TimeUnit {
     return this._value;
   }
 
+  /**
+   * Sets a value from {@param stringValue}, if it can be parsed and is valid.
+   * @param stringValue
+   */
   setStringValue(stringValue: string): void {
     if (this.isValidString(stringValue)) {
       this.setValue(parseInt(stringValue));
     }
   }
 
+  /**
+   * Updates the value in {@param direction} by the step size specified in the constructoor.
+   * @param direction
+   */
   stepUpdate(direction: Direction): void {
     direction === Direction.UP ? this.increment() : this.decrement();
   }
 
-  increment(): void {
+  toString(): string {
+    return this.value < 10 ? `0${this.value}` : this.value.toString();
+  }
+
+  private increment(): void {
     this.setValue(this.value + this._step);
   }
 
-  decrement(): void {
+  private decrement(): void {
     this.setValue(this.value - this._step);
-  }
-
-  toString(): string {
-    return this.value < 10 ? `0${this.value}` : this.value.toString();
   }
 
   protected setValue(newValue: number): void {

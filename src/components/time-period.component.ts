@@ -10,6 +10,10 @@ import {
 import { ClassInfo, classMap } from 'lit-html/directives/class-map';
 import { Period } from '../types';
 
+/**
+ * Renders a Time Period selector with an input for a value and two arrows for step-chaning
+ * the value up and down.
+ */
 @customElement('time-period')
 export class TimePeriodComponent extends LitElement {
   static readonly EVENT_TOGGLE = 'toggle';

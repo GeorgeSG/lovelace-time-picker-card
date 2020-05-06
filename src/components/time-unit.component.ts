@@ -10,6 +10,9 @@ import {
 import { TimeUnit } from '../models/time-unit';
 import { Direction } from '../types';
 
+/**
+ * Renders an AM/PM picker.
+ */
 @customElement('time-unit')
 export class TimeUnitComponent extends LitElement {
   static readonly EVENT_UPDATE = 'update';

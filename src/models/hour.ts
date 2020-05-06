@@ -2,6 +2,9 @@ import { DEFAULT_HOUR_STEP } from '../const';
 import { HourMode } from '../types';
 import { TimeUnit } from './time-unit';
 
+/**
+ * Represents the hour value of a datetime.
+ */
 export class Hour extends TimeUnit {
   private static readonly VALUE_LIMIT = 24;
 
