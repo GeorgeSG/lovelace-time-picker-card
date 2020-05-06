@@ -66,9 +66,9 @@ hide:
 
 | Name                            | Default                     | Description                                 |
 | ------------------------------- | --------------------------- | ------------------------------------------- |
-| --tpc-elements-background-color | `var(--dark-primary-color)` | Background colro for header and ui elements |
+| --tpc-elements-background-color | `var(--dark-primary-color)` | Background color for header and ui elements |
 | --tpc-icon-color                | `var(--primary-text-color)` | Arrow color                                 |
-| --tpc-text-color                | `var(--primary-text-color)` | Text color                                  |
+| --tpc-text-color                | `white`                     | Text color                                  |
 | --tpc-accent-color              | `var(--accent-color)`       | AM / PM active color                        |
 
 ## Meta

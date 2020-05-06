@@ -52,7 +52,7 @@ export class TimeUnitComponent extends LitElement {
   private renderStepChanger(direction: Direction): TemplateResult {
     return html`
       <div class="time-picker-icon" @click=${() => this.onStepChangerClick(direction)}>
-        <ha-icon .icon="mdi:arrow-${direction}"></ha-icon>
+        <ha-icon .icon="hass:chevron-${direction}"></ha-icon>
         <mwc-ripple id="ripple"></mwc-ripple>
       </div>
     `;

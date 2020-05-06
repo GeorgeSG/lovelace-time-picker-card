@@ -134,13 +134,13 @@ export class TimePickerCard extends LitElement {
         );
 
         --tpc-icon-color: var(--time-picker-icon-color, var(--primary-text-color));
-        --tpc-text-color: var(--time-picker-text-color, var(--primary-text-color));
+        --tpc-text-color: var(--time-picker-text-color, #fff);
         --tpc-accent-color: var(--time-picker-accent-color, var(--accent-color));
       }
 
       .time-picker-header {
         padding: 16px;
-        color: var(--tpc-text-color, #fff);
+        color: var(--tpc-text-color);
         background-color: var(--tpc-elements-background-color);
         font-size: 1em;
         text-align: center;

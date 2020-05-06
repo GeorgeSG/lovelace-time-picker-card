@@ -16,8 +16,16 @@ export class TimePeriodComponent extends LitElement {
 
   @property() private period!: Period;
 
+  private get amClass(): ClassInfo {
+    return { 'time-period': true, active: this.period === Period.AM };
+  }
+
+  private get pmClass(): ClassInfo {
+    return { 'time-period': true, active: this.period === Period.PM };
+  }
+
   render(): TemplateResult {
-    return html` <div class="time-period-selector">
+    return html`<div class="time-period-selector">
       <div class=${classMap(this.amClass)} @click=${this.onTimePeriodChange}>
         AM<mwc-ripple></mwc-ripple>
       </div>
@@ -30,14 +38,6 @@ export class TimePeriodComponent extends LitElement {
   onTimePeriodChange(): void {
     const event = new CustomEvent(TimePeriodComponent.EVENT_TOGGLE);
     this.dispatchEvent(event);
-  }
-
-  private get amClass(): ClassInfo {
-    return { 'time-period': true, active: this.period === Period.AM };
-  }
-
-  private get pmClass(): ClassInfo {
-    return { 'time-period': true, active: this.period === Period.PM };
   }
 
   static get styles(): CSSResult {
