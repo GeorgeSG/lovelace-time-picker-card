@@ -121,7 +121,7 @@ export class TimePickerCard extends LitElement {
 
     const time = `${this.hour.value}:${this.minute.value}:00`;
 
-    return this.hass.callService('input_datetime', 'set_datetime', {
+    return this.hass.callService(TimePickerCard.ENTITY_DOMAIN, 'set_datetime', {
       entity_id: this.entity!.entity_id,
       time,
     });
