@@ -89,7 +89,7 @@ you can use the following theme variables:
 | --time-picker-elements-background-color | `var(--primary-color)`       | Background color for header and inputs |
 | --time-picker-icon-color                | `var(--primary-text-color)`  | Arrow color                            |
 | --time-picker-text-color                | `white`                      | Text color                             |
-| --time-picker-accent-color              | `var(--accent-color)`        | AM / PM active color                   |
+| --time-picker-accent-color              | `var(--primary-color)`        | AM / PM active color                   |
 | --time-picker-off-color                 | `var(--disabled-text-color)` | AM / PM inactive color                 |
 
 ## Meta
