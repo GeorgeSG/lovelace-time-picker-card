@@ -32,15 +32,11 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
   }
 
   private get datetimeEntities(): Array<string> {
-    // Find all input_datetime entities
-    const datetimeEntities = Object.keys(this.hass.states)
-      .filter((entityId) => computeDomain(entityId) === ENTITY_DOMAIN)
-      .map((entityId) => this.hass.states[entityId]);
-
-    // Return only the datetime entities that have time.
-    return datetimeEntities
-      .filter((entity) => entity.attributes.has_time === true)
-      .map((entity) => entity.entity_id);
+    return Object.keys(this.hass.states).filter(
+      (entityId) =>
+        computeDomain(entityId) === ENTITY_DOMAIN &&
+        this.hass.states[entityId].attributes.has_time === true
+    );
   }
 
   render(): TemplateResult {
