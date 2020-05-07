@@ -1,6 +1,6 @@
 {
   "name": "time-picker-card",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": "Georgi Gardev <georgi@gardev.com>",
   "description": "Lovelace time-picker-card",
   "keywords": [
