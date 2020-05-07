@@ -6,8 +6,17 @@ export interface TimePickerCardConfig extends LovelaceCardConfig {
   hour_mode?: HourMode;
   hour_step?: number;
   minute_step?: number;
+  layout?: TimePickerLayoutConfig;
   hide?: TimePickerHideConfig;
 }
+
+export type HourMode = 12 | 24 | undefined;
+
+export interface TimePickerLayoutConfig {
+  hour_mode: HourModeLayout;
+}
+
+export type HourModeLayout = 'single' | 'double';
 
 export interface TimePickerHideConfig {
   name: boolean;
@@ -19,8 +28,6 @@ export enum Direction {
 }
 
 export enum Period {
-  AM = 'am',
-  PM = 'pm',
+  AM = 'AM',
+  PM = 'PM',
 }
-
-export type HourMode = 12 | 24 | undefined;

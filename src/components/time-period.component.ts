@@ -8,7 +8,7 @@ import {
   TemplateResult,
 } from 'lit-element';
 import { ClassInfo, classMap } from 'lit-html/directives/class-map';
-import { Period } from '../types';
+import { Period, HourModeLayout } from '../types';
 
 /**
  * Renders a Time Period selector with an input for a value and two arrows for step-chaning
@@ -19,6 +19,7 @@ export class TimePeriodComponent extends LitElement {
   static readonly EVENT_TOGGLE = 'toggle';
 
   @property() private period!: Period;
+  @property() private mode!: HourModeLayout;
 
   private get amClass(): ClassInfo {
     return { 'time-period': true, active: this.period === Period.AM };
@@ -30,18 +31,28 @@ export class TimePeriodComponent extends LitElement {
 
   render(): TemplateResult {
     return html`<div class="time-period-selector">
-      <div class=${classMap(this.amClass)} @click=${this.onTimePeriodChange}>
-        AM<mwc-ripple></mwc-ripple>
-      </div>
-      <div class=${classMap(this.pmClass)} @click=${this.onTimePeriodChange}>
-        PM<mwc-ripple></mwc-ripple>
-      </div>
+      ${this.mode === 'single' ? this.renderSingle() : this.renderDouble()}
     </div>`;
   }
 
   onTimePeriodChange(): void {
     const event = new CustomEvent(TimePeriodComponent.EVENT_TOGGLE);
     this.dispatchEvent(event);
+  }
+
+  private renderSingle(): TemplateResult {
+    return html`<div class="time-period" @click=${this.onTimePeriodChange}>
+      ${this.period}<mwc-ripple></mwc-ripple>
+    </div>`;
+  }
+
+  private renderDouble(): TemplateResult {
+    return html`<div class=${classMap(this.amClass)} @click=${this.onTimePeriodChange}>
+        AM<mwc-ripple></mwc-ripple>
+      </div>
+      <div class=${classMap(this.pmClass)} @click=${this.onTimePeriodChange}>
+        PM<mwc-ripple></mwc-ripple>
+      </div>`;
   }
 
   static get styles(): CSSResult {

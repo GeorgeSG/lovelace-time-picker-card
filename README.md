@@ -15,11 +15,21 @@ Requires an [Input Datetime](https://www.home-assistant.io/integrations/input_da
 
 ## Screenshots
 
+### Default config - card name shown, 24 hour mode
+
 ![Default theme with card name](examples/default_with_name.png)
+
+### Custom config - hidden card name, 12 hour mode
 
 ![Default theme with no card name](examples/default_without_name.png)
 
-![Cudtom theme ](examples/custom.png)
+### Custom config - hidden card name, 12 hour mode with a "single" hour mode picker
+
+![Default theme with single hour mode](examples/single_hour_mode.png)
+
+### Using a custom theme
+
+![Cudtom theme](examples/custom.png)
 
 ## Installation
 
@@ -54,7 +64,14 @@ hide:
 | hour_mode   | `12` or `24` | **Optional** | Hour format. If `12`, card will show AM/PM picker                                                         | `24`                     |
 | hour_step   | number       | **Optional** | Hour change when clicking arrows                                                                          | `1`                      |
 | minute_step | number       | **Optional** | Minute change when clicking arrows                                                                        | `5`                      |
+| layout      | object       | **Optional** | Card Layout configuration                                                                                 | `none`                   |
 | hide        | object       | **Optional** | Hide object                                                                                               | `none`                   |
+
+## Layout Object
+
+| Name      | Type                 | Requirement  | Description                                                                                        | Default  |
+| --------- | -------------------- | ------------ | -------------------------------------------------------------------------------------------------- | -------- |
+| hour_mode | `single` or `double` | **Optional** | Whether to show both AM/PM or just the current mode. In `single` mode, tap the value to change it. | `double` |
 
 ## Hide Object
 

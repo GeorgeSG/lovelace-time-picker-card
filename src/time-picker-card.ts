@@ -11,7 +11,7 @@ import {
 } from 'lit-element';
 import './components/time-period.component';
 import './components/time-unit.component';
-import { CARD_SIZE, CARD_VERSION, ENTITY_DOMAIN } from './const';
+import { CARD_SIZE, CARD_VERSION, ENTITY_DOMAIN, DEFAULT_LAYOUT_HOUR_MODE } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
@@ -79,6 +79,7 @@ export class TimePickerCard extends LitElement {
           ${this.shouldShowPeriod
             ? html`<time-period
                 .period=${this.period}
+                .mode=${this.config.layout?.hour_mode ?? DEFAULT_LAYOUT_HOUR_MODE}
                 @toggle=${this.onPeriodToggle}
               ></time-period>`
             : ''}
