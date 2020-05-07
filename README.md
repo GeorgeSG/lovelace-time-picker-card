@@ -9,7 +9,7 @@
 
 ## Overview
 
-This is a Time Picker card for [Home Assistant](https://www.home-assistant.io/)'s [Lovelace UI](https://www.home-assistant.io/lovelace).
+This is a Time Picker Card for [Home Assistant](https://www.home-assistant.io/)'s [Lovelace UI](https://www.home-assistant.io/lovelace).
 
 Requires an [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) that has time (`has_time: true`).
 
@@ -29,7 +29,7 @@ Requires an [Input Datetime](https://www.home-assistant.io/integrations/input_da
 
 ### Using a custom theme
 
-![Cudtom theme](examples/custom.png)
+![Custom theme](examples/custom.png)
 
 ## Installation
 
@@ -42,6 +42,15 @@ resources:
 ```
 
 ## Usage
+
+### Visual Editor
+
+Time Picker Card supports Lovelace's Visual Editor. Click the + button to add a card and search for time picker.
+
+![Visual Editor](examples/visual_editor.png)
+
+
+### YAML
 
 ```yaml
 type: 'custom:time-picker-card'
@@ -81,7 +90,7 @@ hide:
 
 ## Theme Variables
 
-Time Picker card will automatically pick up colors from your lovelace theme, but if you want to customize some of them,
+Time Picker Card will automatically pick up colors from your lovelace theme, but if you want to customize some of them,
 you can use the following variables in your theme's config file:
 
 | Name                                  | Default                      | Description                            |

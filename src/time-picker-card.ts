@@ -1,4 +1,4 @@
-import { computeDomain, HomeAssistant } from 'custom-card-helpers';
+import { computeDomain, HomeAssistant, LovelaceCard } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import {
   css,
@@ -11,7 +11,8 @@ import {
 } from 'lit-element';
 import './components/time-period.component';
 import './components/time-unit.component';
-import { CARD_SIZE, CARD_VERSION, ENTITY_DOMAIN, DEFAULT_LAYOUT_HOUR_MODE } from './const';
+import './editor';
+import { CARD_SIZE, CARD_VERSION, DEFAULT_LAYOUT_HOUR_MODE, ENTITY_DOMAIN } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
@@ -23,9 +24,18 @@ console.info(
   'color: white; font-weight: bold; background: dimgray'
 );
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+(window as any).customCards = (window as any).customCards || [];
+(window as any).customCards.push({
+  type: 'time-picker-card',
+  name: 'Time Picker Card',
+  description: 'A Time Picker card for setting the time value of Input Datetime entities.',
+});
+/* eslint-enable @typescript-eslint/no-explicit-any */
+
 @customElement('time-picker-card')
-export class TimePickerCard extends LitElement {
-  @property() private hass!: HomeAssistant;
+export class TimePickerCard extends LitElement implements LovelaceCard {
+  @property({ type: Object }) hass!: HomeAssistant;
   @property() private config!: TimePickerCardConfig;
   @property() private hour!: Hour;
   @property() private minute!: Minute;
@@ -156,5 +166,23 @@ export class TimePickerCard extends LitElement {
         justify-content: center;
       }
     `;
+  }
+
+  static getStubConfig(
+    _: HomeAssistant,
+    entities: Array<string>
+  ): Omit<TimePickerCardConfig, 'type'> {
+    const datetimeEntity = entities.find((entityId) => computeDomain(entityId) === ENTITY_DOMAIN);
+
+    return {
+      entity: datetimeEntity || 'input_datetime.example_entity',
+      hour_mode: 24,
+      hour_step: 1,
+      minute_step: 5,
+    };
+  }
+
+  static getConfigElement(): LovelaceCard {
+    return document.createElement('time-picker-card-editor') as LovelaceCard;
   }
 }
