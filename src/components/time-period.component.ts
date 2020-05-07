@@ -41,7 +41,7 @@ export class TimePeriodComponent extends LitElement {
   }
 
   private renderSingle(): TemplateResult {
-    return html`<div class="time-period" @click=${this.onTimePeriodChange}>
+    return html`<div class="time-period active" @click=${this.onTimePeriodChange}>
       ${this.period}<mwc-ripple></mwc-ripple>
     </div>`;
   }
@@ -64,8 +64,8 @@ export class TimePeriodComponent extends LitElement {
       .time-period {
         width: 30px;
         padding: 8px;
-        background: var(--tpc-elements-background-color);
-        color: var(--tpc-text-color, #fff);
+        background: var(--tpc-off-color);
+        color: var(--tpc-text-color);
         text-align: center;
         font-size: 1em;
         cursor: pointer;

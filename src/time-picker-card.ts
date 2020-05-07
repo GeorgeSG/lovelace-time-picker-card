@@ -131,12 +131,13 @@ export class TimePickerCard extends LitElement {
       :host {
         --tpc-elements-background-color: var(
           --time-picker-elements-background-color,
-          var(--dark-primary-color)
+          var(--primary-color)
         );
 
         --tpc-icon-color: var(--time-picker-icon-color, var(--primary-text-color));
         --tpc-text-color: var(--time-picker-text-color, #fff);
-        --tpc-accent-color: var(--time-picker-accent-color, var(--accent-color));
+        --tpc-accent-color: var(--time-picker-accent-color, var(--primary-color));
+        --tpc-off-color: var(--time-picker-off-color, var(--disabled-text-color));
       }
 
       .time-picker-header {

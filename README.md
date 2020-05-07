@@ -81,12 +81,16 @@ hide:
 
 ## Theme Variables
 
-| Name                            | Default                     | Description                                 |
-| ------------------------------- | --------------------------- | ------------------------------------------- |
-| --tpc-elements-background-color | `var(--dark-primary-color)` | Background color for header and ui elements |
-| --tpc-icon-color                | `var(--primary-text-color)` | Arrow color                                 |
-| --tpc-text-color                | `white`                     | Text color                                  |
-| --tpc-accent-color              | `var(--accent-color)`       | AM / PM active color                        |
+Time Picker card will automatically pick up colors from your lovelace theme, but if you want to customize some of them,
+you can use the following theme variables:
+
+| Name                                    | Default                      | Description                            |
+| --------------------------------------- | ---------------------------- | -------------------------------------- |
+| --time-picker-elements-background-color | `var(--primary-color)`       | Background color for header and inputs |
+| --time-picker-icon-color                | `var(--primary-text-color)`  | Arrow color                            |
+| --time-picker-text-color                | `white`                      | Text color                             |
+| --time-picker-accent-color              | `var(--accent-color)`        | AM / PM active color                   |
+| --time-picker-off-color                 | `var(--disabled-text-color)` | AM / PM inactive color                 |
 
 ## Meta
 
