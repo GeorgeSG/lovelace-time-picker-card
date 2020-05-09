@@ -9,11 +9,18 @@ import {
   property,
   TemplateResult,
 } from 'lit-element';
-import { CARD_SIZE, CARD_VERSION, DEFAULT_LAYOUT_HOUR_MODE, ENTITY_DOMAIN } from './const';
+import { ClassInfo, classMap } from 'lit-html/directives/class-map';
+import {
+  CARD_SIZE,
+  CARD_VERSION,
+  DEFAULT_LAYOUT_HOUR_MODE,
+  ENTITY_DOMAIN,
+  DEFAULT_LAYOUT_ALIGN,
+} from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
-import { Period, TimePickerCardConfig } from './types';
+import { Period, TimePickerCardConfig, LayoutAlign } from './types';
 
 import './components/time-period.component';
 import './components/time-unit.component';
@@ -56,6 +63,18 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return this.config.hour_mode === 12;
   }
 
+  private get layoutAlign(): LayoutAlign {
+    return this.config.layout?.align ?? DEFAULT_LAYOUT_ALIGN;
+  }
+
+  private get contentClass(): ClassInfo {
+    return {
+      'time-picker-content': true,
+      [`layout-${this.layoutAlign}`]: true,
+      'with-name': this.shouldShowName,
+    };
+  }
+
   render(): TemplateResult | null {
     if (!this.entity) {
       return Partial.error('Entity not found', this.config);
@@ -80,7 +99,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return html`
       <ha-card>
         ${this.shouldShowName ? Partial.header(this.name!) : ''}
-        <div class="time-picker-content">
+        <div class=${classMap(this.contentClass)}>
           <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
           <div class="time-separator">:</div>
           <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
@@ -158,11 +177,26 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
       }
 
       .time-picker-content {
-        padding: 8px 16px 16px;
+        padding: 16px;
         display: flex;
         flex-direction: row;
         align-items: center;
+      }
+
+      .time-picker-content.with-name {
+        padding: 8px 16px 16px;
+      }
+
+      .time-picker-content.layout-left {
+        justify-content: flex-start;
+      }
+
+      .time-picker-content.layout-center {
         justify-content: center;
+      }
+
+      .time-picker-content.layout-right {
+        justify-content: flex-end;
       }
     `;
   }

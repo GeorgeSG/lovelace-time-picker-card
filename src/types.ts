@@ -13,13 +13,15 @@ export interface TimePickerCardConfig extends LovelaceCardConfig {
 export type HourMode = 12 | 24 | undefined;
 
 export interface TimePickerLayoutConfig {
-  hour_mode: HourModeLayout;
+  align?: LayoutAlign;
+  hour_mode?: LayoutHourMode;
 }
 
-export type HourModeLayout = 'single' | 'double';
+export type LayoutHourMode = 'single' | 'double';
+export type LayoutAlign = 'left' | 'center' | 'right';
 
 export interface TimePickerHideConfig {
-  name: boolean;
+  name?: boolean;
 }
 
 export enum Direction {

@@ -8,7 +8,7 @@ import {
   TemplateResult,
 } from 'lit-element';
 import { ClassInfo, classMap } from 'lit-html/directives/class-map';
-import { Period, HourModeLayout } from '../types';
+import { Period, LayoutHourMode } from '../types';
 
 /**
  * Renders a Time Period selector with an input for a value and two arrows for step-chaning
@@ -19,7 +19,7 @@ export class TimePeriodComponent extends LitElement {
   static readonly EVENT_TOGGLE = 'toggle';
 
   @property() private period!: Period;
-  @property() private mode!: HourModeLayout;
+  @property() private mode!: LayoutHourMode;
 
   private get amClass(): ClassInfo {
     return { 'time-period': true, active: this.period === Period.AM };

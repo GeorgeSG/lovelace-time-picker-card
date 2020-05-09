@@ -9,12 +9,18 @@ import {
   property,
   TemplateResult,
 } from 'lit-element';
-import { DEFAULT_HOUR_STEP, DEFAULT_MINUTE_STEP, ENTITY_DOMAIN } from './const';
-import { HourMode, HourModeLayout, TimePickerCardConfig } from './types';
+import {
+  DEFAULT_HOUR_STEP,
+  DEFAULT_MINUTE_STEP,
+  ENTITY_DOMAIN,
+  DEFAULT_LAYOUT_ALIGN,
+} from './const';
+import { HourMode, LayoutHourMode, TimePickerCardConfig } from './types';
 
 @customElement('time-picker-card-editor')
 export class TimePickerCardEditor extends LitElement implements LovelaceCardEditor {
   private static readonly NUMBER_PROPERTIES = ['hour_step', 'minute_step', 'hour_mode'];
+  private static readonly LAYOUT_ALIGN_VALUES = ['left', 'center', 'right'];
   private static readonly CONFIG_CHANGED_EVENT = 'config-changed';
 
   @property({ type: Object }) hass!: HomeAssistant;
@@ -96,6 +102,24 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
           "Single" hour mode layout (in 12-Hour mode only)
         </ha-switch>
       </div>
+      <div class="side-by-side">
+        <paper-dropdown-menu
+          style="width: 100%"
+          label="Align (Optional)"
+          @value-changed=${this.onLayoutAlignChange}
+        >
+          <paper-listbox
+            slot="dropdown-content"
+            .selected=${TimePickerCardEditor.LAYOUT_ALIGN_VALUES.indexOf(
+              this.config.layout?.align ?? DEFAULT_LAYOUT_ALIGN
+            )}
+          >
+            ${TimePickerCardEditor.LAYOUT_ALIGN_VALUES.map(
+              (align) => html`<paper-item>${align}</paper-item>`
+            )}
+          </paper-listbox>
+        </paper-dropdown-menu>
+      </div>
     </div>`;
   }
 
@@ -111,7 +135,7 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
   }
 
   private onHourModeLayoutChange({ target: { checked } }): void {
-    const hourModeLayout: HourModeLayout = checked ? 'single' : 'double';
+    const hourModeLayout: LayoutHourMode = checked ? 'single' : 'double';
 
     const newConfig = { ...this.config, layout: { hour_mode: hourModeLayout } };
     this.dispatch(newConfig);
@@ -119,6 +143,11 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
 
   private onHideNameChange({ target: { checked } }): void {
     const newConfig = { ...this.config, hide: { name: !checked } };
+    this.dispatch(newConfig);
+  }
+
+  private onLayoutAlignChange({ detail: { value } }: CustomEvent): void {
+    const newConfig = { ...this.config, layout: { align: value } };
     this.dispatch(newConfig);
   }
 
