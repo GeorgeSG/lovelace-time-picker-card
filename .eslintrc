@@ -15,5 +15,5 @@
     "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/explicit-function-return-type": [1, { "allowExpressions": true }]
   },
-  "ignorePatterns": ["dist/", "node_modules/"]
+  "ignorePatterns": ["dist/", "node_modules/", "*.js"]
 }
