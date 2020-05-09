@@ -5,7 +5,6 @@
 [![GitHub Release][releases-shield]][releases-link]
 [![CI][ci-shield]][ci-link]
 [![Project Maintenance][maintenance-shield]][maintenance-link]
-[![GitHub Activity][commits-shield]][commits-link]
 [![License][license-shield]][license-link]
 
 ## Overview
@@ -143,8 +142,6 @@ you can use the following variables in your theme's config file:
 [ci-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/actions?query=workflow%3ACI
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
 [maintenance-link]: https://github.com/GeorgeSG/lovelace-time-picker-card
-[commits-shield]: https://img.shields.io/github/commit-activity/y/GeorgeSG/lovelace-time-picker-card
-[commits-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/commits/master
 [license-shield]: https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?color=brightgreen
 [license-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
 [github-icon]: http://i.imgur.com/9I6NRUm.png
