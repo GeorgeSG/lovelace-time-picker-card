@@ -32,15 +32,6 @@ Time Picker Card supports Lovelace's Visual Editor. Click the + button to add a 
 
 ![Visual Editor](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/visual_editor.png)
 
-### YAML
-
-This is the minimal required yaml config:
-
-```yaml
-type: 'custom:time-picker-card'
-entity: input_datetime.alarm_time
-```
-
 ## Examples
 
 ### Default config - card name shown, 24 hour mode
@@ -107,7 +98,7 @@ layout:
 | layout      | object       | **Optional** | Card Layout configuration                                                                                 | `none`                   |
 | hide        | object       | **Optional** | Hide object                                                                                               | `none`                   |
 
-## Layout Object
+### Layout Object
 
 | Name           | Value                     | Requirement  | Description                                                                                        | Default  |
 | -------------- | ------------------------- | ------------ | -------------------------------------------------------------------------------------------------- | -------- |
@@ -115,13 +106,13 @@ layout:
 | align_controls | `left`, `center`, `right` | **Optional** | Horizontal alignment of the controls                                                               | `center` |
 | name           | `header`, `inside`        | **Optional** | Whether to show the name as a header or inside the card                                            | `header` |
 
-## Hide Object
+### Hide Object
 
 | Name | Type    | Requirement  | Description         | Default |
 | ---- | ------- | ------------ | ------------------- | ------- |
 | name | boolean | **Optional** | Hides the card name | `false` |
 
-## Theme Variables
+### Theme Variables
 
 Time Picker Card will automatically pick up colors from your lovelace theme, but if you want to customize some of them,
 you can use the following variables in your theme's config file:
