@@ -18,19 +18,19 @@ Requires an [Input Datetime](https://www.home-assistant.io/integrations/input_da
 
 ### Default config - card name shown, 24 hour mode
 
-![Default theme with card name](examples/default_with_name.png)
+![Default theme with card name](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/default_with_name.png)
 
 ### Custom config - hidden card name, 12 hour mode
 
-![Default theme with no card name](examples/default_without_name.png)
+![Default theme with no card name](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/default_without_name.png)
 
 ### Custom config - hidden card name, 12 hour mode with a "single" hour mode picker
 
-![Default theme with single hour mode](examples/single_hour_mode.png)
+![Default theme with single hour mode](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/single_hour_mode.png)
 
 ### Using a custom theme
 
-![Custom theme](examples/custom.png)
+![Custom theme](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/custom.png)
 
 ## Installation
 
@@ -48,7 +48,7 @@ resources:
 
 Time Picker Card supports Lovelace's Visual Editor. Click the + button to add a card and search for time picker.
 
-![Visual Editor](examples/visual_editor.png)
+![Visual Editor](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/visual_editor.png)
 
 ### YAML
 
