@@ -1,11 +1,11 @@
-# Time Picker Card by [@georgesg](https://www.github.com/georgesg)
+# Time Picker Card
 
-[![hacs_badge][hacs-shield]][hacs]
-[![GitHub Release][releases-shield]][releases]
-![CI](https://github.com/GeorgeSG/lovelace-time-picker-card/workflows/CI/badge.svg)
-[![Project Maintenance][maintenance-shield]][maintenance]
-[![GitHub Activity][commits-shield]][commits]
-[![License][license-shield]][license]
+[![HACS][hacs-shield]][hacs-link]
+[![GitHub Release][releases-shield]][releases-link]
+[![CI][ci-shield]][ci-link]
+[![Project Maintenance][maintenance-shield]][maintenance-link]
+[![GitHub Activity][commits-shield]][commits-link]
+[![License][license-shield]][license-link]
 
 ## Overview
 
@@ -48,7 +48,6 @@ resources:
 Time Picker Card supports Lovelace's Visual Editor. Click the + button to add a card and search for time picker.
 
 ![Visual Editor](examples/visual_editor.png)
-
 
 ### YAML
 
@@ -106,18 +105,23 @@ you can use the following variables in your theme's config file:
 **Georgi Gardev**
 
 - [gar.dev](https://gar.dev)
-- [![GitHub][github-icon]](https://github.com/GeorgeSG/) [GeorgeSG](https://github.com/GeorgeSG/)
-- [![Twitter][twitter-icon]](https://twitter.com/georgesg92) [@georgesg92](https://twitter.com/georgesg92)
+- [![GitHub][github-icon]][github-link] [GeorgeSG][github-link]
+- [![Twitter][twitter-icon]][twitter-link] [@georgesg92][twitter-link]
 
-[commits-shield]: https://img.shields.io/github/commit-activity/y/GeorgeSG/lovelace-time-picker-card?style=flat-square
-[commits]: https://github.com/GeorgeSG/lovelace-time-picker-card/commits/master
-[license-shield]: https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?style=flat-square
-[license]: https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg?style=flat-square
-[maintenance]: https://github.com/GeorgeSG/lovelace-time-picker-card
-[releases-shield]: https://img.shields.io/github/release/GeorgeSG/lovelace-time-picker-card.svg?style=flat-square
-[releases]: https://github.com/GeorgeSG/lovelace-time-picker-card/releases
-[hacs-shield]: https://img.shields.io/badge/HACS-Custom-orange.svg?style=flat-square
-[hacs]: https://github.com/custom-components/hacs
-[twitter-icon]: http://i.imgur.com/wWzX9uB.png
+[commits-shield]:     https://img.shields.io/github/commit-activity/y/GeorgeSG/lovelace-time-picker-card
+[commits-link]:       https://github.com/GeorgeSG/lovelace-time-picker-card/commits/master
+[license-shield]:     https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?color=brightgreen
+[license-link]:       https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
+[maintenance-link]:   https://github.com/GeorgeSG/lovelace-time-picker-card
+[releases-shield]:    https://img.shields.io/github/release/GeorgeSG/lovelace-time-picker-card.svg
+[releases-link]:      https://github.com/GeorgeSG/lovelace-time-picker-card/releases
+[ci-shield]:          https://img.shields.io/github/workflow/status/GeorgeSG/lovelace-time-picker-card/CI?label=CI&logo=github&
+[ci-link]:            https://github.com/GeorgeSG/lovelace-time-picker-card/actions?query=workflow%3ACI
+[hacs-shield]:        https://img.shields.io/badge/HACS-Default-brightgreen.svg
+[hacs-link]:          https://github.com/custom-components/hacs
+
 [github-icon]: http://i.imgur.com/9I6NRUm.png
+[github-link]: https://github.com/GeorgeSG/
+[twitter-icon]: http://i.imgur.com/wWzX9uB.png
+[twitter-link]: https://twitter.com/georgesg92
