@@ -13,7 +13,8 @@
   "rules": {
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/explicit-function-return-type": [1, { "allowExpressions": true }]
+    "@typescript-eslint/explicit-function-return-type": [1, { "allowExpressions": true }],
+    "@typescript-eslint/no-namespace": 0
   },
   "ignorePatterns": ["dist/", "node_modules/", "*.js"]
 }

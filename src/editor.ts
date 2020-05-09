@@ -13,14 +13,14 @@ import {
   DEFAULT_HOUR_STEP,
   DEFAULT_MINUTE_STEP,
   ENTITY_DOMAIN,
-  DEFAULT_LAYOUT_ALIGN,
+  DEFAULT_LAYOUT_ALIGN_CONTROLS,
+  DEFAULT_LAYOUT_NAME,
 } from './const';
-import { HourMode, LayoutHourMode, TimePickerCardConfig } from './types';
+import { TimePickerCardConfig, Layout, HourMode } from './types';
 
 @customElement('time-picker-card-editor')
 export class TimePickerCardEditor extends LitElement implements LovelaceCardEditor {
   private static readonly NUMBER_PROPERTIES = ['hour_step', 'minute_step', 'hour_mode'];
-  private static readonly LAYOUT_ALIGN_VALUES = ['left', 'center', 'right'];
   private static readonly CONFIG_CHANGED_EVENT = 'config-changed';
 
   @property({ type: Object }) hass!: HomeAssistant;
@@ -53,14 +53,14 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
           ${this.datetimeEntities.map((entity) => html`<paper-item>${entity}</paper-item>`)}
         </paper-listbox>
       </paper-dropdown-menu>
+      <paper-input
+        label="Name (Optional)"
+        .configValue=${'name'}
+        .value=${this.config.name}
+        .placeholder=${this.entity?.attributes.friendly_name}
+        @value-changed=${this.onValueChange}
+      ></paper-input>
       <div class="side-by-side">
-        <paper-input
-          label="Name (Optional)"
-          .configValue=${'name'}
-          .value=${this.config.name}
-          .placeholder=${this.entity?.attributes.friendly_name}
-          @value-changed=${this.onValueChange}
-        ></paper-input>
         <ha-switch
           style="margin-left: 10px"
           .checked="${!Boolean(this.config.hide?.name)}"
@@ -69,6 +69,20 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
         >
           Show name?
         </ha-switch>
+        <paper-dropdown-menu
+          style="width: 100%"
+          label="Name Position (Optional)"
+          @value-changed=${this.onLayoutNameChange}
+        >
+          <paper-listbox
+            slot="dropdown-content"
+            .selected=${Object.values(Layout.Name).indexOf(
+              this.config.layout?.name ?? DEFAULT_LAYOUT_NAME
+            )}
+          >
+            ${Object.values(Layout.Name).map((name) => html`<paper-item>${name}</paper-item>`)}
+          </paper-listbox>
+        </paper-dropdown-menu>
       </div>
       <div class="side-by-side">
         <paper-input
@@ -105,18 +119,16 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
       <div class="side-by-side">
         <paper-dropdown-menu
           style="width: 100%"
-          label="Align (Optional)"
+          label="Align Controls (Optional)"
           @value-changed=${this.onLayoutAlignChange}
         >
           <paper-listbox
             slot="dropdown-content"
-            .selected=${TimePickerCardEditor.LAYOUT_ALIGN_VALUES.indexOf(
-              this.config.layout?.align ?? DEFAULT_LAYOUT_ALIGN
+            .selected=${Object.values(Layout.AlignControls).indexOf(
+              this.config.layout?.align_controls ?? DEFAULT_LAYOUT_ALIGN_CONTROLS
             )}
           >
-            ${TimePickerCardEditor.LAYOUT_ALIGN_VALUES.map(
-              (align) => html`<paper-item>${align}</paper-item>`
-            )}
+            ${Object.values(Layout.AlignControls).map((a) => html`<paper-item>${a}</paper-item>`)}
           </paper-listbox>
         </paper-dropdown-menu>
       </div>
@@ -134,20 +146,30 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
     this.dispatch(newConfig);
   }
 
-  private onHourModeLayoutChange({ target: { checked } }): void {
-    const hourModeLayout: LayoutHourMode = checked ? 'single' : 'double';
-
-    const newConfig = { ...this.config, layout: { hour_mode: hourModeLayout } };
-    this.dispatch(newConfig);
-  }
-
   private onHideNameChange({ target: { checked } }): void {
     const newConfig = { ...this.config, hide: { name: !checked } };
     this.dispatch(newConfig);
   }
 
   private onLayoutAlignChange({ detail: { value } }: CustomEvent): void {
-    const newConfig = { ...this.config, layout: { align: value } };
+    const layout = { ...this.config.layout, align_controls: value };
+    const newConfig = { ...this.config, layout };
+    this.dispatch(newConfig);
+  }
+
+  private onLayoutNameChange({ detail: { value } }: CustomEvent): void {
+    const layout = { ...this.config.layout, name: value };
+    const newConfig = { ...this.config, layout };
+    this.dispatch(newConfig);
+  }
+
+  private onHourModeLayoutChange({ target: { checked } }): void {
+    const hourModeLayout: Layout.HourMode = checked ? 'single' : 'double';
+
+    const newConfig = {
+      ...this.config,
+      layout: { ...this.config.layout, hour_mode: hourModeLayout },
+    };
     this.dispatch(newConfig);
   }
 

@@ -15,12 +15,12 @@ import {
   CARD_VERSION,
   DEFAULT_LAYOUT_HOUR_MODE,
   ENTITY_DOMAIN,
-  DEFAULT_LAYOUT_ALIGN,
+  DEFAULT_LAYOUT_ALIGN_CONTROLS,
 } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
-import { Period, TimePickerCardConfig, LayoutAlign } from './types';
+import { Period, TimePickerCardConfig, Layout } from './types';
 
 import './components/time-period.component';
 import './components/time-unit.component';
@@ -51,8 +51,20 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return this.hass.states[this.config.entity];
   }
 
-  private get shouldShowName(): boolean {
-    return Boolean(this.config.hide?.name) === false && Boolean(this.name);
+  private get hasNameInHeader(): boolean {
+    return (
+      Boolean(this.name) &&
+      Boolean(this.config.hide?.name) === false &&
+      this.config.layout?.name !== Layout.Name.INSIDE
+    );
+  }
+
+  private get hasNameInside(): boolean {
+    return (
+      Boolean(this.name) &&
+      Boolean(this.config.hide?.name) === false &&
+      this.config.layout?.name === Layout.Name.INSIDE
+    );
   }
 
   private get name(): string | undefined {
@@ -63,15 +75,21 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return this.config.hour_mode === 12;
   }
 
-  private get layoutAlign(): LayoutAlign {
-    return this.config.layout?.align ?? DEFAULT_LAYOUT_ALIGN;
+  private get layoutAlign(): Layout.AlignControls {
+    return this.config.layout?.align_controls ?? DEFAULT_LAYOUT_ALIGN_CONTROLS;
+  }
+
+  private get rowClass(): ClassInfo {
+    return {
+      'time-picker-row': true,
+      'with-header-name': this.hasNameInHeader,
+    };
   }
 
   private get contentClass(): ClassInfo {
     return {
       'time-picker-content': true,
       [`layout-${this.layoutAlign}`]: true,
-      'with-name': this.shouldShowName,
     };
   }
 
@@ -98,19 +116,23 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
     return html`
       <ha-card>
-        ${this.shouldShowName ? Partial.header(this.name!) : ''}
-        <div class=${classMap(this.contentClass)}>
-          <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
-          <div class="time-separator">:</div>
-          <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
+        ${this.hasNameInHeader ? Partial.headerName(this.name!) : ''}
+        <div class=${classMap(this.rowClass)}>
+          ${this.hasNameInside ? Partial.nestedName(this.name!, this.entity) : ''}
 
-          ${this.shouldShowPeriod
-            ? html`<time-period
-                .period=${this.period}
-                .mode=${this.config.layout?.hour_mode ?? DEFAULT_LAYOUT_HOUR_MODE}
-                @toggle=${this.onPeriodToggle}
-              ></time-period>`
-            : ''}
+          <div class=${classMap(this.contentClass)}>
+            <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
+            <div class="time-separator">:</div>
+            <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
+
+            ${this.shouldShowPeriod
+              ? html`<time-period
+                  .period=${this.period}
+                  .mode=${this.config.layout?.hour_mode ?? DEFAULT_LAYOUT_HOUR_MODE}
+                  @toggle=${this.onPeriodToggle}
+                ></time-period>`
+              : ''}
+          </div>
         </div>
       </ha-card>
     `;
@@ -176,15 +198,22 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         text-align: center;
       }
 
-      .time-picker-content {
-        padding: 16px;
+      .time-picker-row {
         display: flex;
         flex-direction: row;
         align-items: center;
+        padding: 16px;
       }
 
-      .time-picker-content.with-name {
+      .time-picker-row.with-header-name {
         padding: 8px 16px 16px;
+      }
+
+      .time-picker-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        flex: 1 0 auto;
       }
 
       .time-picker-content.layout-left {
@@ -197,6 +226,10 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
       .time-picker-content.layout-right {
         justify-content: flex-end;
+      }
+
+      .entity-name-inside {
+        margin-left: 16px;
       }
     `;
   }
