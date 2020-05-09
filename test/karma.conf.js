@@ -1,10 +1,10 @@
 module.exports = function (config) {
-  config.set({
-    basePath: 'test/',
+  return config.set({
+    basePath: './',
     frameworks: ['mocha', 'chai'],
-    files: ['*.test.ts'],
+    files: ['**/*.test.ts'],
     preprocessors: {
-      '*.test.ts': ['rollup'],
+      '**/*.test.ts': ['rollup'],
     },
 
     rollupPreprocessor: {
@@ -12,26 +12,34 @@ module.exports = function (config) {
         require('@rollup/plugin-node-resolve')(),
         require('@rollup/plugin-json')(),
         require('@rollup/plugin-typescript')(),
-        require('rollup-plugin-babel')(),
+        require('@rollup/plugin-commonjs')({
+          namedExports: {
+            chai: ['expect'],
+          },
+        }),
       ],
       output: {
         format: 'umd',
         sourcemap: 'inline',
       },
+      onwarn: function (message) {
+        if (/Circular dependency/.test(message)) return;
+        console.warn(message);
+      },
     },
 
-    // possible values: 'dots', 'progress'
-    // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['dots'],
 
     port: 9876,
     colors: true,
-    // possible values: config.LOG_DISABLE || config.LOG_ERROR || config.LOG_WARN || config.LOG_INFO || config.LOG_DEBUG
-    logLevel: config.LOG_INFO,
     autoWatch: false,
     singleRun: true,
 
-    browsers: ['ChromeHeadless'],
     concurrency: Infinity,
+    browsers: ['ChromeHeadless'],
+
+    client: {
+      captureConsole: false,
+    },
   });
 };

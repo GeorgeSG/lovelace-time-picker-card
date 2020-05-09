@@ -19,7 +19,7 @@
     "build": "npm run lint && npm run rollup",
     "lint": "eslint src/*.ts",
     "rollup": "rollup -c",
-    "test": "./node_modules/karma/bin/karma start",
+    "test": "./node_modules/karma/bin/karma start ./test/karma.conf.js",
     "release-patch": "npm version patch && git push origin master --tags",
     "release-minor": "npm version minor && git push origin master --tags",
     "release-major": "npm version major && git push origin master --tags"
@@ -33,6 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@open-wc/testing": "^2.5.16",
+    "@rollup/plugin-commonjs": "^11.1.0",
     "@rollup/plugin-json": "^4.0.3",
     "@rollup/plugin-node-resolve": "^7.1.1",
     "@rollup/plugin-typescript": "^4.0.0",

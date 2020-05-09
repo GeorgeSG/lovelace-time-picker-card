@@ -27,7 +27,7 @@ export class TimeUnitComponent extends LitElement {
           class="time-input"
           type="number"
           placeholder="MM"
-          min="0"
+          min=${this.unit.minValue}
           max=${this.unit.maxValue}
           .value="${this.unit.toString()}"
           @change=${this.onInputChange}

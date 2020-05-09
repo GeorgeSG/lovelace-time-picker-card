@@ -8,12 +8,16 @@ import { TimeUnit } from './time-unit';
 export class Hour extends TimeUnit {
   private static readonly VALUE_LIMIT = 24;
 
-  constructor(value: number, step = DEFAULT_HOUR_STEP, private hourMode: HourMode) {
+  constructor(value: number, step = DEFAULT_HOUR_STEP, private hourMode?: HourMode) {
     super(value, step, Hour.VALUE_LIMIT);
   }
 
+  get minValue(): number {
+    return this.hourMode === 12 ? 1 : 0; // there is no 00:00 AM -> it's 12:00 AM.
+  }
+
   get maxValue(): number {
-    return this.hourMode || Hour.VALUE_LIMIT;
+    return this.hourMode === 12 ? 12 : Hour.VALUE_LIMIT - 1;
   }
 
   togglePeriod(): void {
@@ -21,15 +25,15 @@ export class Hour extends TimeUnit {
   }
 
   toString(): string {
-    const value = this.hourMode === 12 ? (this.value + 12) % 12 : this.value;
+    let value;
+
+    if (this.hourMode === 12) {
+      value = (this.value + 12) % 12;
+      value = value === 0 ? 12 : value;
+    } else {
+      value = this.value;
+    }
 
     return value < 10 ? `0${value}` : value.toString();
-  }
-
-  protected isValidString(valueStr: string): boolean {
-    const value = parseInt(valueStr);
-    const limit = this.hourMode || this._limit;
-
-    return !isNaN(value) && value >= 0 && value <= limit;
   }
 }

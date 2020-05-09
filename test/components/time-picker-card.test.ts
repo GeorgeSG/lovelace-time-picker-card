@@ -1,9 +1,9 @@
 import { expect, fixture, html } from '@open-wc/testing';
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
-import '../src/time-picker-card';
-import { TimePickerCard } from '../src/time-picker-card';
-import { TimePickerCardConfig, HourMode } from '../src/types';
+import '../../src/time-picker-card';
+import { TimePickerCard } from '../../src/time-picker-card';
+import { TimePickerCardConfig, HourMode } from '../../src/types';
 import './test-error-card';
 
 async function render(config?: {

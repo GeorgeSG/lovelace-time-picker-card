@@ -5,12 +5,11 @@ import { Direction } from '../types';
  */
 export abstract class TimeUnit {
   /**
-   * Whether {@param valueStr} can be set as a value of this instance.
+   * The min allowed UI value for this instance.
    */
-  protected abstract isValidString(valueStr: string): boolean;
-
+  abstract minValue: number;
   /**
-   * The max allowed value for this instance. Used for UI validation.
+   * The max allowed value for this instance.
    */
   abstract maxValue: number;
 
@@ -62,5 +61,10 @@ export abstract class TimeUnit {
     }
 
     this._value = newValue;
+  }
+
+  protected isValidString(valueStr: string): boolean {
+    const value = parseInt(valueStr);
+    return !isNaN(value) && value >= 0 && value < this._limit;
   }
 }
