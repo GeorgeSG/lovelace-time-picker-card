@@ -1,4 +1,4 @@
-import { computeDomain, HomeAssistant, LovelaceCardConfig } from 'custom-card-helpers';
+import { computeDomain, HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import {
   css,
@@ -11,13 +11,6 @@ import {
 } from 'lit-element';
 import { DEFAULT_HOUR_STEP, DEFAULT_MINUTE_STEP, ENTITY_DOMAIN } from './const';
 import { HourMode, HourModeLayout, TimePickerCardConfig } from './types';
-
-// TODO: Remove this once there's a new release of custom-card-helpers that exports it.
-export interface LovelaceCardEditor extends HTMLElement {
-  hass?: HomeAssistant;
-  lovelace?: unknown;
-  setConfig(config: LovelaceCardConfig): void;
-}
 
 @customElement('time-picker-card-editor')
 export class TimePickerCardEditor extends LitElement implements LovelaceCardEditor {

@@ -24,7 +24,7 @@
     "release-major": "npm version major && git push origin master --tags"
   },
   "dependencies": {
-    "custom-card-helpers": "^1.5.0",
+    "custom-card-helpers": "^1.6.4",
     "home-assistant-js-websocket": "^5.1.0",
     "lit-element": "^2.3.1",
     "lit-html": "^1.2.1"

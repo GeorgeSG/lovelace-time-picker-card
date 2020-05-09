@@ -9,14 +9,15 @@ import {
   property,
   TemplateResult,
 } from 'lit-element';
-import './components/time-period.component';
-import './components/time-unit.component';
-import './editor';
 import { CARD_SIZE, CARD_VERSION, DEFAULT_LAYOUT_HOUR_MODE, ENTITY_DOMAIN } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
 import { Partial } from './partials';
 import { Period, TimePickerCardConfig } from './types';
+
+import './components/time-period.component';
+import './components/time-unit.component';
+import './editor';
 
 console.info(
   `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
@@ -24,14 +25,12 @@ console.info(
   'color: white; font-weight: bold; background: dimgray'
 );
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-(window as any).customCards = (window as any).customCards || [];
-(window as any).customCards.push({
+window.customCards = window.customCards || [];
+window.customCards.push({
   type: 'time-picker-card',
   name: 'Time Picker Card',
   description: 'A Time Picker card for setting the time value of Input Datetime entities.',
 });
-/* eslint-enable @typescript-eslint/no-explicit-any */
 
 @customElement('time-picker-card')
 export class TimePickerCard extends LitElement implements LovelaceCard {
