@@ -1,6 +1,7 @@
 # Time Picker Card
 
 [![HACS][hacs-shield]][hacs-link]
+[![Downloads][downloads-shield]][downloads-link]
 [![GitHub Release][releases-shield]][releases-link]
 [![CI][ci-shield]][ci-link]
 [![Project Maintenance][maintenance-shield]][maintenance-link]
@@ -108,18 +109,20 @@ you can use the following variables in your theme's config file:
 - [![GitHub][github-icon]][github-link] [GeorgeSG][github-link]
 - [![Twitter][twitter-icon]][twitter-link] [@georgesg92][twitter-link]
 
-[commits-shield]:     https://img.shields.io/github/commit-activity/y/GeorgeSG/lovelace-time-picker-card
-[commits-link]:       https://github.com/GeorgeSG/lovelace-time-picker-card/commits/master
-[license-shield]:     https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?color=brightgreen
-[license-link]:       https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
-[maintenance-link]:   https://github.com/GeorgeSG/lovelace-time-picker-card
+[hacs-shield]:        https://img.shields.io/badge/HACS-Default-brightgreen.svg
+[hacs-link]:          https://github.com/custom-components/hacs
+[downloads-shield]:   https://img.shields.io/github/downloads/GeorgeSG/lovelace-time-picker-card/latest/total?color=brightgreen&logo=github
+[downloads-link]:     https://github.com/GeorgeSG/lovelace-time-picker-card/releases
 [releases-shield]:    https://img.shields.io/github/release/GeorgeSG/lovelace-time-picker-card.svg
 [releases-link]:      https://github.com/GeorgeSG/lovelace-time-picker-card/releases
 [ci-shield]:          https://img.shields.io/github/workflow/status/GeorgeSG/lovelace-time-picker-card/CI?label=CI&logo=github&
 [ci-link]:            https://github.com/GeorgeSG/lovelace-time-picker-card/actions?query=workflow%3ACI
-[hacs-shield]:        https://img.shields.io/badge/HACS-Default-brightgreen.svg
-[hacs-link]:          https://github.com/custom-components/hacs
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
+[maintenance-link]:   https://github.com/GeorgeSG/lovelace-time-picker-card
+[commits-shield]:     https://img.shields.io/github/commit-activity/y/GeorgeSG/lovelace-time-picker-card
+[commits-link]:       https://github.com/GeorgeSG/lovelace-time-picker-card/commits/master
+[license-shield]:     https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?color=brightgreen
+[license-link]:       https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
 
 [github-icon]: http://i.imgur.com/9I6NRUm.png
 [github-link]: https://github.com/GeorgeSG/
