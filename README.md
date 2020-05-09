@@ -94,7 +94,7 @@ layout:
   align_controls: right
 ```
 
-### Using a custom theme
+### With a custom lovelace theme
 
 ![Custom theme](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/custom.png)
 
