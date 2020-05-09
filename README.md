@@ -34,15 +34,11 @@ Time Picker Card supports Lovelace's Visual Editor. Click the + button to add a 
 
 ### YAML
 
+This is the minimal required yaml config:
+
 ```yaml
 type: 'custom:time-picker-card'
 entity: input_datetime.alarm_time
-name: 'Choose a time'
-hour_mode: 24
-hour_step: 1
-minute_step: 5
-hide:
-  name: false
 ```
 
 ## Examples
