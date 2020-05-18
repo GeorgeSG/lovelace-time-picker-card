@@ -15,7 +15,20 @@ Requires an [Input Datetime](https://www.home-assistant.io/integrations/input_da
 
 ## Installation
 
-Install using [HACS](https://hacs.xyz) or follow this [guide](https://github.com/thomasloven/hass-config/wiki/Lovelace-Plugins)
+### HACS
+
+Install using [HACS](https://hacs.xyz) and add the following to your config:
+
+
+```yaml
+resources:
+  - url: /hacsfiles/lovelace-time-picker-card/time-picker-card.js
+    type: module
+```
+
+### Manual
+
+Download time-picker-card.js from the [latest realease](https://github.com/GeorgeSG/lovelace-time-picker-card/releases/latest) and place it in your `config/www` folder. Add the following to your config:
 
 ```yaml
 resources:
