@@ -99,4 +99,21 @@ describe('Minute', () => {
       expect(minute.value).to.equal(47);
     });
   });
+
+  describe('will overflow', () => {
+    it('returns true if the minutes will overflow an hour up', () => {
+      minute.setStringValue('59');
+      expect(minute.willOverflow(Direction.UP)).to.be.true;
+    });
+
+    it('returns true if the minutes will overflow an hour down', () => {
+      minute.setStringValue('0');
+      expect(minute.willOverflow(Direction.DOWN)).to.be.true;
+    });
+
+    it('returns true if the minutes will not overflow', () => {
+      minute.setStringValue('55');
+      expect(minute.willOverflow(Direction.DOWN)).to.be.false;
+    });
+  });
 });

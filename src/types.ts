@@ -3,6 +3,7 @@ import { LovelaceCardConfig } from 'custom-card-helpers';
 export interface TimePickerCardConfig extends LovelaceCardConfig {
   entity: string;
   name?: string;
+  link_values?: boolean;
   hour_mode?: HourMode;
   hour_step?: number;
   minute_step?: number;

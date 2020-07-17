@@ -19,6 +19,7 @@ import {
 } from './const';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
+import { Time } from './models/time';
 import { Partial } from './partials';
 import { Period, TimePickerCardConfig, Layout } from './types';
 
@@ -43,8 +44,7 @@ window.customCards.push({
 export class TimePickerCard extends LitElement implements LovelaceCard {
   @property({ type: Object }) hass!: HomeAssistant;
   @property() private config!: TimePickerCardConfig;
-  @property() private hour!: Hour;
-  @property() private minute!: Minute;
+  @property() private time!: Time;
   @property() private period!: Period;
 
   private get entity(): HassEntity | undefined {
@@ -110,9 +110,10 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     }
 
     const { hour, minute } = this.entity!.attributes;
-    this.hour = new Hour(hour, this.config.hour_step, this.config.hour_mode);
-    this.minute = new Minute(minute, this.config.minute_step);
-    this.period = this.hour.value >= 12 ? Period.PM : Period.AM;
+    const hourInstance = new Hour(hour, this.config.hour_step, this.config.hour_mode);
+    const minuteInstance = new Minute(minute, this.config.minute_step);
+    this.time = new Time(hourInstance, minuteInstance, this.config.link_values);
+    this.period = hourInstance.value >= 12 ? Period.PM : Period.AM;
 
     return html`
       <ha-card>
@@ -121,9 +122,17 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
           ${this.hasNameInside ? Partial.nestedName(this.name!, this.entity) : ''}
 
           <div class=${classMap(this.contentClass)}>
-            <time-unit .unit=${this.hour} @update=${this.callHassService}></time-unit>
+            <time-unit
+              .unit=${this.time.hour}
+              @stepChange=${this.onHourStepChange}
+              @update=${this.callHassService}
+            ></time-unit>
             <div class="time-separator">:</div>
-            <time-unit .unit=${this.minute} @update=${this.callHassService}></time-unit>
+            <time-unit
+              .unit=${this.time.minute}
+              @stepChange=${this.onMinuteStepChange}
+              @update=${this.callHassService}
+            ></time-unit>
 
             ${this.shouldShowPeriod
               ? html`<time-period
@@ -159,7 +168,17 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
   }
 
   private onPeriodToggle(): void {
-    this.hour.togglePeriod();
+    this.time.hour.togglePeriod();
+    this.callHassService();
+  }
+
+  private onHourStepChange(event: CustomEvent): void {
+    this.time.hourStep(event.detail.direction);
+    this.callHassService();
+  }
+
+  private onMinuteStepChange(event: CustomEvent): void {
+    this.time.minuteStep(event.detail.direction);
     this.callHassService();
   }
 
@@ -168,11 +187,9 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
       throw new Error('Unable to update datetime');
     }
 
-    const time = `${this.hour.value}:${this.minute.value}:00`;
-
     return this.hass.callService(ENTITY_DOMAIN, 'set_datetime', {
       entity_id: this.entity!.entity_id,
-      time,
+      time: this.time.value,
     });
   }
 

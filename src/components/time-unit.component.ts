@@ -16,6 +16,7 @@ import { Direction } from '../types';
 @customElement('time-unit')
 export class TimeUnitComponent extends LitElement {
   static readonly EVENT_UPDATE = 'update';
+  static readonly EVENT_STEP_CHANGE = 'stepChange';
 
   @property() private unit!: TimeUnit;
 
@@ -39,16 +40,12 @@ export class TimeUnitComponent extends LitElement {
 
   onInputChange({ target: { value } }: { target: HTMLInputElement }): void {
     this.unit.setStringValue(value);
-    this.emitUpdate();
+    const event = new CustomEvent(TimeUnitComponent.EVENT_UPDATE);
+    this.dispatchEvent(event);
   }
 
   onStepChangerClick(direction: Direction): void {
-    this.unit.stepUpdate(direction);
-    this.emitUpdate();
-  }
-
-  private emitUpdate(): void {
-    const event = new CustomEvent(TimeUnitComponent.EVENT_UPDATE);
+    const event = new CustomEvent(TimeUnitComponent.EVENT_STEP_CHANGE, { detail: { direction } });
     this.dispatchEvent(event);
   }
 

@@ -61,14 +61,15 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
         @value-changed=${this.onValueChange}
       ></paper-input>
       <div class="side-by-side">
-        <ha-switch
-          style="margin-left: 10px"
-          .checked="${!Boolean(this.config.hide?.name)}"
-          .configValue="${'hide_name'}"
-          @change="${this.onHideNameChange}"
-        >
+        <div>
+          <ha-switch
+            style="margin-left: 10px"
+            .checked="${!Boolean(this.config.hide?.name)}"
+            .configValue="${'hide_name'}"
+            @change="${this.onHideNameChange}"
+          ></ha-switch>
           Show name?
-        </ha-switch>
+        </div>
         <paper-dropdown-menu
           style="width: 100%"
           label="Name Position (Optional)"
@@ -101,20 +102,24 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
         ></paper-input>
       </div>
       <div class="side-by-side">
-        <ha-switch
-          .checked="${this.config.hour_mode === 12}"
-          .configValue="${'hour_mode'}"
-          @change="${this.onHourModeChange}"
-        >
+        <div>
+          <ha-switch
+            .checked="${this.config.hour_mode === 12}"
+            .configValue="${'hour_mode'}"
+            @change="${this.onHourModeChange}"
+          ></ha-switch>
           12-Hour mode
-        </ha-switch>
-        <ha-switch
-          .checked="${this.config.layout?.hour_mode === 'single'}"
-          .configValue="${'hour_mode_layout'}"
-          @change="${this.onHourModeLayoutChange}"
-        >
-          "Single" hour mode layout (in 12-Hour mode only)
-        </ha-switch>
+        </div>
+        ${this.config.hour_mode === 12
+          ? html`<div>
+              <ha-switch
+                .checked="${this.config.layout?.hour_mode === 'single'}"
+                .configValue="${'hour_mode_layout'}"
+                @change="${this.onHourModeLayoutChange}"
+              ></ha-switch>
+              "Single" hour mode layout
+            </div>`
+          : ''}
       </div>
       <div class="side-by-side">
         <paper-dropdown-menu
@@ -131,6 +136,14 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
             ${Object.values(Layout.AlignControls).map((a) => html`<paper-item>${a}</paper-item>`)}
           </paper-listbox>
         </paper-dropdown-menu>
+        <div>
+          <ha-switch
+            .checked="${this.config.link_values}"
+            .configValue="${'link_values'}"
+            @change="${this.onLinkValuesChange}"
+          ></ha-switch>
+          Link Values
+        </div>
       </div>
     </div>`;
   }
@@ -173,6 +186,11 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
     this.dispatch(newConfig);
   }
 
+  private onLinkValuesChange({ target: { checked } }): void {
+    const newConfig = { ...this.config, link_values: checked };
+    this.dispatch(newConfig);
+  }
+
   private onValueChange(e: CustomEvent): void {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const property = (e.target as any).configValue;
@@ -209,6 +227,7 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
     return css`
       ha-switch {
         padding: 16px 0;
+        margin-right: 16px;
       }
       .side-by-side {
         display: flex;

@@ -39,23 +39,27 @@ export abstract class TimeUnit {
    * Updates the value in {@param direction} by the step size specified in the constructoor.
    * @param direction
    */
-  stepUpdate(direction: Direction): void {
-    direction === Direction.UP ? this.increment() : this.decrement();
+  stepUpdate(direction: Direction, step: number = this._step): void {
+    direction === Direction.UP ? this.increment(step) : this.decrement(step);
   }
 
   toString(): string {
     return this.value < 10 ? `0${this.value}` : this.value.toString();
   }
 
-  private increment(): void {
-    this.setValue(this.value + this._step);
+  private increment(step: number = this._step): void {
+    this.setValue(this.value + step);
   }
 
-  private decrement(): void {
-    this.setValue(this.value - this._step);
+  private decrement(step: number = this._step): void {
+    this.setValue(this.value - step);
   }
 
   protected setValue(newValue: number): void {
+    if (isNaN(newValue)) {
+      return;
+    }
+
     if (newValue >= this._limit || newValue < 0) {
       newValue = (newValue + this._limit) % this._limit;
     }

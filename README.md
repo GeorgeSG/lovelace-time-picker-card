@@ -103,6 +103,7 @@ layout:
 | type        | string       | **Required** | `custom:time-picker-card`                                                                                 |                          |
 | entity      | string       | **Required** | [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) entity with `has_time: true` |                          |
 | name        | string       | **Optional** | Card name                                                                                                 | Entity's `friendly_name` |
+| link_values | boolean      | **Optional** | If enabled, will change hour when minutes overflow. E.g. will go from 11:55 to 12:00, instead of 11:00    | `false`                  |
 | hour_mode   | `12` or `24` | **Optional** | Hour format. If `12`, card will show AM/PM picker                                                         | `24`                     |
 | hour_step   | number       | **Optional** | Hour change when clicking arrows                                                                          | `1`                      |
 | minute_step | number       | **Optional** | Minute change when clicking arrows                                                                        | `5`                      |
