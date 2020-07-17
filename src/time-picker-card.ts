@@ -188,12 +188,16 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         --tpc-text-color: var(--time-picker-text-color, #fff);
         --tpc-accent-color: var(--time-picker-accent-color, var(--primary-color));
         --tpc-off-color: var(--time-picker-off-color, var(--disabled-text-color));
+
+        --tpc-border-radius: var(--time-picker-border-radius, var(--ha-card-border-radius, 4px));
       }
 
       .time-picker-header {
         padding: 16px;
         color: var(--tpc-text-color);
         background-color: var(--tpc-elements-background-color);
+        border-top-left-radius: var(--tpc-border-radius);
+        border-top-right-radius: var(--tpc-border-radius);
         font-size: 1em;
         text-align: center;
       }
