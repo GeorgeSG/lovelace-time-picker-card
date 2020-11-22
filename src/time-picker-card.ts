@@ -10,22 +10,22 @@ import {
   TemplateResult,
 } from 'lit-element';
 import { ClassInfo, classMap } from 'lit-html/directives/class-map';
+import './components/time-period.component';
+import './components/time-unit.component';
 import {
   CARD_SIZE,
   CARD_VERSION,
+  DEFAULT_LAYOUT_ALIGN_CONTROLS,
   DEFAULT_LAYOUT_HOUR_MODE,
   ENTITY_DOMAIN,
-  DEFAULT_LAYOUT_ALIGN_CONTROLS,
 } from './const';
+import './editor';
 import { Hour } from './models/hour';
 import { Minute } from './models/minute';
+import { Second } from './models/second';
 import { Time } from './models/time';
 import { Partial } from './partials';
-import { Period, TimePickerCardConfig, Layout } from './types';
-
-import './components/time-period.component';
-import './components/time-unit.component';
-import './editor';
+import { Layout, Period, TimePickerCardConfig } from './types';
 
 console.info(
   `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
@@ -109,10 +109,11 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
       );
     }
 
-    const { hour, minute } = this.entity!.attributes;
+    const { hour, minute, second } = this.entity!.attributes;
     const hourInstance = new Hour(hour, this.config.hour_step, this.config.hour_mode);
     const minuteInstance = new Minute(minute, this.config.minute_step);
-    this.time = new Time(hourInstance, minuteInstance, this.config.link_values);
+    const secondInstance = new Second(second, this.config.second_step);
+    this.time = new Time(hourInstance, minuteInstance, secondInstance, this.config.link_values);
     this.period = hourInstance.value >= 12 ? Period.PM : Period.AM;
 
     return html`
@@ -133,7 +134,14 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
               @stepChange=${this.onMinuteStepChange}
               @update=${this.callHassService}
             ></time-unit>
-
+            ${this.config.hide?.seconds === false
+              ? html`<div class="time-separator">:</div>
+                  <time-unit
+                    .unit=${this.time.second}
+                    @stepChange=${this.onSecondStepChange}
+                    @update=${this.callHassService}
+                  ></time-unit>`
+              : ''}
             ${this.shouldShowPeriod
               ? html`<time-period
                   .period=${this.period}
@@ -179,6 +187,11 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
   private onMinuteStepChange(event: CustomEvent): void {
     this.time.minuteStep(event.detail.direction);
+    this.callHassService();
+  }
+
+  private onSecondStepChange(event: CustomEvent): void {
+    this.time.secondStep(event.detail.direction);
     this.callHassService();
   }
 

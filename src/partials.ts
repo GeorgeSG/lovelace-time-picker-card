@@ -16,11 +16,7 @@ export class Partial {
   }
 
   static headerName(title: string): TemplateResult {
-    return html`
-      <div class="time-picker-header">
-        ${title}
-      </div>
-    `;
+    return html`<div class="time-picker-header">${title}</div>`;
   }
 
   static nestedName(name: string, entity: HassEntity): TemplateResult {

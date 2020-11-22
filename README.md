@@ -120,9 +120,10 @@ layout:
 
 ### Hide Object
 
-| Name | Type    | Requirement  | Description         | Default |
-| ---- | ------- | ------------ | ------------------- | ------- |
-| name | boolean | **Optional** | Hides the card name | `false` |
+| Name    | Type    | Requirement  | Description         | Default |
+| ----    | ------- | ------------ | ------------------- | ------- |
+| name    | boolean | **Optional** | Hides the card name | `false` |
+| seconds | boolean | **Optional** | Hides seconds input | `true`  |
 
 ### Theme Variables
 

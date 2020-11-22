@@ -7,6 +7,7 @@ export interface TimePickerCardConfig extends LovelaceCardConfig {
   hour_mode?: HourMode;
   hour_step?: number;
   minute_step?: number;
+  second_step?: number;
   layout?: TimePickerLayoutConfig;
   hide?: TimePickerHideConfig;
 }
@@ -36,6 +37,7 @@ export namespace Layout {
 
 export interface TimePickerHideConfig {
   name?: boolean;
+  seconds?: boolean;
 }
 
 export enum Direction {
