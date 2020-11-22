@@ -15,12 +15,18 @@ import {
   ENTITY_DOMAIN,
   DEFAULT_LAYOUT_ALIGN_CONTROLS,
   DEFAULT_LAYOUT_NAME,
+  DEFAULT_SECOND_STEP,
 } from './const';
 import { TimePickerCardConfig, Layout, HourMode } from './types';
 
 @customElement('time-picker-card-editor')
 export class TimePickerCardEditor extends LitElement implements LovelaceCardEditor {
-  private static readonly NUMBER_PROPERTIES = ['hour_step', 'minute_step', 'hour_mode'];
+  private static readonly NUMBER_PROPERTIES = [
+    'hour_step',
+    'minute_step',
+    'second_step',
+    'hour_mode',
+  ];
   private static readonly CONFIG_CHANGED_EVENT = 'config-changed';
 
   @property({ type: Object }) hass!: HomeAssistant;
@@ -65,7 +71,6 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
           <ha-switch
             style="margin-left: 10px"
             .checked="${!Boolean(this.config.hide?.name)}"
-            .configValue="${'hide_name'}"
             @change="${this.onHideNameChange}"
           ></ha-switch>
           Show name?
@@ -98,6 +103,23 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
           label="Minute Step (Optional)"
           .configValue=${'minute_step'}
           .value=${this.config.minute_step || DEFAULT_MINUTE_STEP}
+          @value-changed=${this.onValueChange}
+        ></paper-input>
+      </div>
+      <div class="side-by-side">
+        <div>
+          <ha-switch
+            style="margin-left: 10px"
+            .checked="${this.config.hide?.seconds === false}"
+            @change="${this.onHideSecondsChange}"
+          ></ha-switch>
+          Show seconds?
+        </div>
+        <paper-input
+          type="number"
+          label="Second Step (Optional)"
+          .configValue=${'second_step'}
+          .value=${this.config.second_step || DEFAULT_SECOND_STEP}
           @value-changed=${this.onValueChange}
         ></paper-input>
       </div>
@@ -161,6 +183,11 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
 
   private onHideNameChange({ target: { checked } }): void {
     const newConfig = { ...this.config, hide: { name: !checked } };
+    this.dispatch(newConfig);
+  }
+
+  private onHideSecondsChange({ target: { checked } }): void {
+    const newConfig = { ...this.config, hide: { seconds: !checked } };
     this.dispatch(newConfig);
   }
 
