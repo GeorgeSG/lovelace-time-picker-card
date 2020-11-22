@@ -1,4 +1,4 @@
-import { Second } from '../../src/models/Second';
+import { Second } from '../../src/models/second';
 import { Direction } from '../../src/types';
 import { expect } from 'chai';
 
