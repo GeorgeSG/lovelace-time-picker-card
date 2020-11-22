@@ -188,12 +188,14 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
   }
 
   private onHideNameChange({ target: { checked } }): void {
-    const newConfig = { ...this.config, hide: { name: !checked } };
+    const hide = { ...this.config.hide, name: !checked };
+    const newConfig = { ...this.config, hide };
     this.dispatch(newConfig);
   }
 
   private onHideSecondsChange({ target: { checked } }): void {
-    const newConfig = { ...this.config, hide: { seconds: !checked } };
+    const hide = { ...this.config.hide, seconds: !checked };
+    const newConfig = { ...this.config, hide };
     this.dispatch(newConfig);
   }
 
