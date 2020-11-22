@@ -117,6 +117,7 @@ layout:
 | hour_mode      | `single`, `double`        | **Optional** | Whether to show both AM/PM or just the current mode. In `single` mode, tap the value to change it. | `double` |
 | align_controls | `left`, `center`, `right` | **Optional** | Horizontal alignment of the controls                                                               | `center` |
 | name           | `header`, `inside`        | **Optional** | Whether to show the name as a header or inside the card                                            | `header` |
+| embedded       | boolean                   | **Optional** | Render with embedded style - disables padding, box shadow, and card header                                            | `false` |
 
 ### Hide Object
 

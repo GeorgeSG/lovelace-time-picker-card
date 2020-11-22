@@ -18,6 +18,7 @@ export interface TimePickerLayoutConfig {
   align_controls?: Layout.AlignControls;
   name?: Layout.Name;
   hour_mode?: Layout.HourMode;
+  embedded?: boolean;
 }
 
 export namespace Layout {

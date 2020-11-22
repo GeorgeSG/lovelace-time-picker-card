@@ -127,7 +127,6 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
         <div>
           <ha-switch
             .checked="${this.config.hour_mode === 12}"
-            .configValue="${'hour_mode'}"
             @change="${this.onHourModeChange}"
           ></ha-switch>
           12-Hour mode
@@ -136,7 +135,6 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
           ? html`<div>
               <ha-switch
                 .checked="${this.config.layout?.hour_mode === 'single'}"
-                .configValue="${'hour_mode_layout'}"
                 @change="${this.onHourModeLayoutChange}"
               ></ha-switch>
               "Single" hour mode layout
@@ -161,10 +159,18 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
         <div>
           <ha-switch
             .checked="${this.config.link_values}"
-            .configValue="${'link_values'}"
             @change="${this.onLinkValuesChange}"
           ></ha-switch>
           Link Values
+        </div>
+      </div>
+      <div class="side-by-side">
+        <div>
+          <ha-switch
+            .checked="${this.config.layout?.embedded}"
+            @change="${this.onEmbeddedChange}"
+          ></ha-switch>
+          Embedded
         </div>
       </div>
     </div>`;
@@ -215,6 +221,11 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
 
   private onLinkValuesChange({ target: { checked } }): void {
     const newConfig = { ...this.config, link_values: checked };
+    this.dispatch(newConfig);
+  }
+
+  private onEmbeddedChange({ target: { checked } }): void {
+    const newConfig = { ...this.config, layout: { embedded: checked } };
     this.dispatch(newConfig);
   }
 

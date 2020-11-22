@@ -51,11 +51,16 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return this.hass.states[this.config.entity];
   }
 
+  private get isEmbedded(): boolean {
+    return this.config.layout?.embedded === true;
+  }
+
   private get hasNameInHeader(): boolean {
     return (
       Boolean(this.name) &&
       Boolean(this.config.hide?.name) === false &&
-      this.config.layout?.name !== Layout.Name.INSIDE
+      this.config.layout?.name !== Layout.Name.INSIDE &&
+      Boolean(this.config.layout?.embedded) === false // embedded layout disables name in header
     );
   }
 
@@ -63,7 +68,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return (
       Boolean(this.name) &&
       Boolean(this.config.hide?.name) === false &&
-      this.config.layout?.name === Layout.Name.INSIDE
+      (this.config.layout?.name === Layout.Name.INSIDE || Boolean(this.config.layout?.embedded))
     );
   }
 
@@ -79,10 +84,17 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     return this.config.layout?.align_controls ?? DEFAULT_LAYOUT_ALIGN_CONTROLS;
   }
 
+  private get haCardClass(): ClassInfo {
+    return {
+      embedded: this.isEmbedded,
+    };
+  }
+
   private get rowClass(): ClassInfo {
     return {
       'time-picker-row': true,
       'with-header-name': this.hasNameInHeader,
+      embedded: this.isEmbedded,
     };
   }
 
@@ -117,7 +129,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     this.period = hourInstance.value >= 12 ? Period.PM : Period.AM;
 
     return html`
-      <ha-card>
+      <ha-card class=${classMap(this.haCardClass)}>
         ${this.hasNameInHeader ? Partial.headerName(this.name!) : ''}
         <div class=${classMap(this.rowClass)}>
           ${this.hasNameInside ? Partial.nestedName(this.name!, this.entity) : ''}
@@ -222,6 +234,10 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         --tpc-border-radius: var(--time-picker-border-radius, var(--ha-card-border-radius, 4px));
       }
 
+      ha-card.embedded {
+        box-shadow: none;
+      }
+
       .time-picker-header {
         padding: 16px;
         color: var(--tpc-text-color);
@@ -237,6 +253,10 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         flex-direction: row;
         align-items: center;
         padding: 16px;
+      }
+
+      .time-picker-row.embedded {
+        padding: 0;
       }
 
       .time-picker-row.with-header-name {
