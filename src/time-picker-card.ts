@@ -234,6 +234,10 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         --tpc-border-radius: var(--time-picker-border-radius, var(--ha-card-border-radius, 4px));
       }
 
+      ha-card {
+        overflow: scroll;
+      }
+
       ha-card.embedded {
         box-shadow: none;
       }
