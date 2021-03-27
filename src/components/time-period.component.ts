@@ -63,7 +63,7 @@ export class TimePeriodComponent extends LitElement {
 
       .time-period {
         width: 30px;
-        padding: 8px;
+        padding: var(--tpc-control-padding);
         background: var(--tpc-off-color);
         color: var(--tpc-text-color);
         text-align: center;

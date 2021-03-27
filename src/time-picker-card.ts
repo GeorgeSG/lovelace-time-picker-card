@@ -226,6 +226,8 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
           var(--primary-color)
         );
 
+        --tpc-control-padding: var(--time-picker-control-padding, 8px);
+
         --tpc-icon-color: var(--time-picker-icon-color, var(--primary-text-color));
         --tpc-text-color: var(--time-picker-text-color, #fff);
         --tpc-accent-color: var(--time-picker-accent-color, var(--primary-color));

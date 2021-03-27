@@ -139,6 +139,7 @@ you can use the following variables in your theme's config file:
 | time-picker-accent-color              | `var(--primary-color)`         | AM / PM active color                   |
 | time-picker-off-color                 | `var(--disabled-text-color)`   | AM / PM inactive color                 |
 | time-picker-border-radius             | `var(--ha-card-border-radius)` | Border radius of the card              |
+| time-picker-control-padding           | `8px`                          | Padding for interactive elements. Increase for larger hitboxes of the controls. Example: `10px 12px` |
 
 ## Meta
 

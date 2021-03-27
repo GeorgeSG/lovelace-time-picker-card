@@ -69,7 +69,7 @@ export class TimeUnitComponent extends LitElement {
 
       .time-picker-icon {
         width: 30px;
-        padding: 8px;
+        padding: var(--tpc-control-padding);
         text-align: center;
         cursor: pointer;
         color: var(--tpc-icon-color);
@@ -77,7 +77,7 @@ export class TimeUnitComponent extends LitElement {
 
       .time-input {
         width: 30px;
-        padding: 8px 8px 6px;
+        padding: var(--tpc-control-padding);
         background: var(--tpc-elements-background-color);
         border: 0;
         border-bottom: 2px solid var(--tpc-elements-background-color);
