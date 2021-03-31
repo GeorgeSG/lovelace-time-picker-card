@@ -117,12 +117,12 @@ layout:
 | hour_mode      | `single`, `double`        | **Optional** | Whether to show both AM/PM or just the current mode. In `single` mode, tap the value to change it. | `double` |
 | align_controls | `left`, `center`, `right` | **Optional** | Horizontal alignment of the controls                                                               | `center` |
 | name           | `header`, `inside`        | **Optional** | Whether to show the name as a header or inside the card                                            | `header` |
-| embedded       | boolean                   | **Optional** | Render with embedded style - disables padding, box shadow, and card header                                            | `false` |
+| embedded       | boolean                   | **Optional** | Render with embedded style - disables padding, box shadow, and card header                         | `false`  |
 
 ### Hide Object
 
 | Name    | Type    | Requirement  | Description         | Default |
-| ----    | ------- | ------------ | ------------------- | ------- |
+| ------- | ------- | ------------ | ------------------- | ------- |
 | name    | boolean | **Optional** | Hides the card name | `false` |
 | seconds | boolean | **Optional** | Hides seconds input | `true`  |
 
@@ -131,14 +131,14 @@ layout:
 Time Picker Card will automatically pick up colors from your lovelace theme, but if you want to customize some of them,
 you can use the following variables in your theme's config file:
 
-| Name                                  | Default                        | Description                            |
-| ------------------------------------- | ------------------------------ | -------------------------------------- |
-| time-picker-elements-background-color | `var(--primary-color)`         | Background color for header and inputs |
-| time-picker-icon-color                | `var(--primary-text-color)`    | Arrow color                            |
-| time-picker-text-color                | `white`                        | Text color                             |
-| time-picker-accent-color              | `var(--primary-color)`         | AM / PM active color                   |
-| time-picker-off-color                 | `var(--disabled-text-color)`   | AM / PM inactive color                 |
-| time-picker-border-radius             | `var(--ha-card-border-radius)` | Border radius of the card              |
+| Name                                  | Default                        | Description                                                                                          |
+| ------------------------------------- | ------------------------------ | ---------------------------------------------------------------------------------------------------- |
+| time-picker-elements-background-color | `var(--primary-color)`         | Background color for header and inputs                                                               |
+| time-picker-icon-color                | `var(--primary-text-color)`    | Arrow color                                                                                          |
+| time-picker-text-color                | `white`                        | Text color                                                                                           |
+| time-picker-accent-color              | `var(--primary-color)`         | AM / PM active color                                                                                 |
+| time-picker-off-color                 | `var(--disabled-text-color)`   | AM / PM inactive color                                                                               |
+| time-picker-border-radius             | `var(--ha-card-border-radius)` | Border radius of the card                                                                            |
 | time-picker-control-padding           | `8px`                          | Padding for interactive elements. Increase for larger hitboxes of the controls. Example: `10px 12px` |
 
 ## Meta
@@ -157,7 +157,7 @@ you can use the following variables in your theme's config file:
 [releases-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/releases
 [ci-shield]: https://img.shields.io/github/workflow/status/GeorgeSG/lovelace-time-picker-card/CI?label=CI&logo=github&
 [ci-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/actions?query=workflow%3ACI
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
 [maintenance-link]: https://github.com/GeorgeSG/lovelace-time-picker-card
 [license-shield]: https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?color=brightgreen
 [license-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
