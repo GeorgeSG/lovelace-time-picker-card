@@ -38,6 +38,7 @@ export namespace Layout {
 
 export interface TimePickerHideConfig {
   name?: boolean;
+  icon?: boolean;
   seconds?: boolean;
 }
 

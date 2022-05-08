@@ -124,6 +124,7 @@ layout:
 | Name    | Type    | Requirement  | Description         | Default |
 | ------- | ------- | ------------ | ------------------- | ------- |
 | name    | boolean | **Optional** | Hides the card name | `false` |
+| icon    | boolean | **Optional** | Hides the card icon (only with controls "inside") | `false` |
 | seconds | boolean | **Optional** | Hides seconds input | `true`  |
 
 ### Theme Variables

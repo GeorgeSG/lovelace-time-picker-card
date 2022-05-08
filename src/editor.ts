@@ -75,21 +75,29 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
           ></ha-switch>
           Show name?
         </div>
-        <paper-dropdown-menu
-          style="width: 100%"
-          label="Name Position (Optional)"
-          @value-changed=${this.onLayoutNameChange}
-        >
-          <paper-listbox
-            slot="dropdown-content"
-            .selected=${Object.values(Layout.Name).indexOf(
-              this.config.layout?.name ?? DEFAULT_LAYOUT_NAME
-            )}
-          >
-            ${Object.values(Layout.Name).map((name) => html`<paper-item>${name}</paper-item>`)}
-          </paper-listbox>
-        </paper-dropdown-menu>
+        <div>
+          <ha-switch
+            style="margin-left: 10px"
+            .checked="${!Boolean(this.config.hide?.icon)}"
+            @change="${this.onHideIconChange}"
+          ></ha-switch>
+          Show icon?
+        </div>
       </div>
+      <paper-dropdown-menu
+        style="width: 100%"
+        label="Name Position (Optional)"
+        @value-changed=${this.onLayoutNameChange}
+      >
+        <paper-listbox
+          slot="dropdown-content"
+          .selected=${Object.values(Layout.Name).indexOf(
+            this.config.layout?.name ?? DEFAULT_LAYOUT_NAME
+          )}
+        >
+          ${Object.values(Layout.Name).map((name) => html`<paper-item>${name}</paper-item>`)}
+        </paper-listbox>
+      </paper-dropdown-menu>
       <div class="side-by-side">
         <paper-input
           type="number"
@@ -189,6 +197,12 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
 
   private onHideNameChange({ target: { checked } }): void {
     const hide = { ...this.config.hide, name: !checked };
+    const newConfig = { ...this.config, hide };
+    this.dispatch(newConfig);
+  }
+
+  private onHideIconChange({ target: { checked } }): void {
+    const hide = { ...this.config.hide, icon: !checked };
     const newConfig = { ...this.config, hide };
     this.dispatch(newConfig);
   }

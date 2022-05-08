@@ -67,7 +67,6 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
   private get hasNameInside(): boolean {
     return (
       Boolean(this.name) &&
-      Boolean(this.config.hide?.name) === false &&
       (this.config.layout?.name === Layout.Name.INSIDE || Boolean(this.config.layout?.embedded))
     );
   }
@@ -132,7 +131,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
       <ha-card class=${classMap(this.haCardClass)}>
         ${this.hasNameInHeader ? Partial.headerName(this.name!) : ''}
         <div class=${classMap(this.rowClass)}>
-          ${this.hasNameInside ? Partial.nestedName(this.name!, this.entity) : ''}
+          ${this.hasNameInside ? Partial.nestedName(this.name!, this.entity, this.config.hide) : ''}
 
           <div class=${classMap(this.contentClass)}>
             <time-unit

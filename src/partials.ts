@@ -1,5 +1,5 @@
 import { html, TemplateResult } from 'lit-element';
-import { TimePickerCardConfig } from './types';
+import { TimePickerCardConfig, TimePickerHideConfig } from './types';
 import { LovelaceCard } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 
@@ -19,8 +19,19 @@ export class Partial {
     return html`<div class="time-picker-header">${title}</div>`;
   }
 
-  static nestedName(name: string, entity: HassEntity): TemplateResult {
-    return html`<state-badge .stateObj=${entity}></state-badge>
-      <div class="entity-name-inside">${name}</div>`;
+  static nestedName(name: string, entity: HassEntity, hide?: TimePickerHideConfig): TemplateResult {
+    const icon = html`<state-badge .stateObj=${entity}></state-badge>`;
+    const label = html`<div class="entity-name-inside">${name}</div>`;
+
+    const visibleElements = [
+      { show: !hide?.icon, value: icon },
+      { show: !hide?.name, value: label },
+    ]
+      .filter(({ show }) => show)
+      .map(({ value }) => value);
+
+    return html`${visibleElements}`;
+
+    // return hideIcon ? label : html`${icon}${label}`;
   }
 }
