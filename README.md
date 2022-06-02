@@ -151,14 +151,14 @@ you can use the following variables in your theme's config file:
 - [![Twitter][twitter-icon]][twitter-link] [@georgesg92][twitter-link]
 
 [hacs-shield]: https://img.shields.io/badge/HACS-Default-brightgreen.svg
-[hacs-link]: https://github.com/custom-components/hacs
+[hacs-link]: https://github.com/hacs/integration
 [downloads-shield]: https://img.shields.io/github/downloads/GeorgeSG/lovelace-time-picker-card/latest/total?color=brightgreen&logo=github
 [downloads-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/releases
 [releases-shield]: https://img.shields.io/github/release/GeorgeSG/lovelace-time-picker-card.svg
 [releases-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/releases
 [ci-shield]: https://img.shields.io/github/workflow/status/GeorgeSG/lovelace-time-picker-card/CI?label=CI&logo=github&
 [ci-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/actions?query=workflow%3ACI
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2022.svg
 [maintenance-link]: https://github.com/GeorgeSG/lovelace-time-picker-card
 [license-shield]: https://img.shields.io/github/license/GeorgeSG/lovelace-time-picker-card?color=brightgreen
 [license-link]: https://github.com/GeorgeSG/lovelace-time-picker-card/blob/master/LICENSE
