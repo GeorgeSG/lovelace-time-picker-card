@@ -237,6 +237,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
       ha-card {
         overflow: auto;
+        border: none;
       }
 
       ha-card.embedded {
