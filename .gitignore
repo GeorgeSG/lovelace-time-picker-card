@@ -1,2 +1,6 @@
 node_modules/
 dist/
+
+devtools/homeassistant/*
+!devtools/homeassistant/configuration.yaml
+!devtools/homeassistant/ui-lovelace.yaml
