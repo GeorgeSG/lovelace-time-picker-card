@@ -45,7 +45,6 @@ const SCHEMA = [
       {
         name: 'hour_mode',
         type: 'select',
-        default: ['24'],
         options: [
           [12, '12'],
           [24, '24'],
@@ -62,7 +61,6 @@ const SCHEMA = [
       {
         name: 'hour_mode',
         type: 'select',
-        default: ['single'],
         options: [
           ['single', 'single'],
           ['double', 'double'],
@@ -71,7 +69,6 @@ const SCHEMA = [
       {
         name: 'align_controls',
         type: 'select',
-        default: 'center',
         options: [
           ['left', 'left'],
           ['center', 'center'],
@@ -81,7 +78,6 @@ const SCHEMA = [
       {
         name: 'name',
         type: 'select',
-        default: ['header'],
         options: [
           ['header', 'header'],
           ['inside', 'inside'],
@@ -102,7 +98,7 @@ const SCHEMA = [
         schema: [
           { name: 'name', type: 'boolean' },
           { name: 'icon', type: 'boolean' },
-          { name: 'seconds', type: 'boolean', default: true },
+          { name: 'seconds', type: 'boolean' },
         ],
       },
     ],
