@@ -22,6 +22,7 @@ export interface TimePickerLayoutConfig {
   name?: Layout.Name;
   hour_mode?: Layout.HourMode;
   embedded?: boolean;
+  thin?: boolean;
 }
 
 export namespace Layout {

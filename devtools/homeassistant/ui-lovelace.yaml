@@ -14,7 +14,7 @@ views:
             cards:
               - type: custom:time-picker-card
                 entity: input_datetime.test_date_time
-                name: Alarm time
+                name: With tap actions
                 hour_mode: 24
                 hour_step: 2
                 tap_action:
@@ -36,17 +36,23 @@ views:
                     name: "Time picker card · Hold action"
                     message: "Debug"
               - type: custom:time-picker-card
+                name: Hour mode 12, thin, single, hidden name
                 entity: input_datetime.test_date_time
                 hour_mode: 12
                 layout:
                   hour_mode: single
+                  thin: true
                 hide:
                   name: true
 
           - type: custom:time-picker-card
             entity: input_datetime.test_date_time
+            name: Thin
+            layout:
+              thin: true
           - type: custom:time-picker-card
             entity: input_datetime.test_date_time
+            name: Hidden seconds
             hide:
               seconds: false
 
@@ -54,11 +60,13 @@ views:
             cards:
               - type: custom:time-picker-card
                 entity: input_datetime.test_date_time
+                name: Hidden name
                 hour_mode: 12
                 hide:
                   name: true
               - type: custom:time-picker-card
                 entity: input_datetime.test_date_time
+                name: Linked, single hour mode, hidden name
                 link_values: true
                 hour_mode: 12
                 hour_step: 2
@@ -70,14 +78,34 @@ views:
 
           - type: custom:time-picker-card
             entity: input_datetime.test_date
-            link_values: true
-            hour_mode: 12
-            hour_step: 2
-            minute_step: 3
+            name: Error
+
+  - title: name inside
+    path: name-inside
+    cards:
+      - type: custom:time-picker-card
+        entity: input_datetime.test_date_time
+        name: Inside, controls right
+        hour_mode: 12
+        layout:
+          name: inside
+          align_controls: right
+      - type: horizontal-stack
+        cards:
+          - type: custom:time-picker-card
+            entity: input_datetime.test_date_time
+            name: Inside, hidden name
             layout:
-              hour_mode: single
+              name: inside
             hide:
-              name: false
+              name: true
+          - type: custom:time-picker-card
+            entity: input_datetime.test_date_time
+            name: Inside, hidden icon
+            layout:
+              name: inside
+            hide:
+              icon: true
 
   - title: embedded
     path: embedded
@@ -90,11 +118,21 @@ views:
               - input_datetime.test_date_time
               - type: custom:time-picker-card
                 entity: input_datetime.test_date_time
-                name: Alarm time
+                name: Embedded thin
                 hour_mode: 24
                 hour_step: 2
                 layout:
                   embedded: true
+                  thin: true
+
+              - type: custom:time-picker-card
+                entity: input_datetime.test_date_time
+                name: Inside
+                hour_mode: 24
+                hour_step: 2
+                layout:
+                  name: inside
+
               - type: custom:time-picker-card
                 entity: input_datetime.test_date_time
                 hour_mode: 12

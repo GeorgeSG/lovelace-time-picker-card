@@ -87,6 +87,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
   private get haCardClass(): ClassInfo {
     return {
       embedded: this.isEmbedded,
+      thin: this.config.layout?.thin === true,
     };
   }
 
@@ -310,11 +311,19 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         text-align: center;
       }
 
+      .thin > .time-picker-header {
+        padding: 4px;
+      }
+
       .time-picker-row {
         display: flex;
         flex-direction: row;
         align-items: center;
         padding: 16px;
+      }
+
+      .thin .time-picker-row {
+        padding: 0 !important ;
       }
 
       .time-picker-row.embedded {
