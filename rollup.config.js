@@ -1,15 +1,15 @@
 import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import typescript from '@rollup/plugin-typescript';
-import { terser } from 'rollup-plugin-terser';
-import babel from 'rollup-plugin-babel';
+import { terser } from '@el3um4s/rollup-plugin-terser';
+import babel from '@rollup/plugin-babel';
 import serve from 'rollup-plugin-serve';
 
 const dev = process.env.ROLLUP_WATCH;
 
 const serveOptions = {
   contentBase: ['./dist'],
-  host: '0.0.0.0',
+  host: 'localhost',
   port: 5000,
   allowCrossOrigin: true,
   headers: {
@@ -24,9 +24,9 @@ export default {
     format: 'es',
   },
   plugins: [
+    typescript({ exclude: ['test/**/*'] }),
     nodeResolve(),
     json(),
-    typescript(),
     babel({
       exclude: 'node_modules/**',
     }),

@@ -1,23 +1,16 @@
 import { computeDomain, HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
-import {
-  css,
-  CSSResult,
-  customElement,
-  html,
-  LitElement,
-  property,
-  TemplateResult,
-} from 'lit-element';
+import { css, CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import {
   DEFAULT_HOUR_STEP,
-  DEFAULT_MINUTE_STEP,
-  ENTITY_DOMAIN,
   DEFAULT_LAYOUT_ALIGN_CONTROLS,
   DEFAULT_LAYOUT_NAME,
+  DEFAULT_MINUTE_STEP,
   DEFAULT_SECOND_STEP,
+  ENTITY_DOMAIN,
 } from './const';
-import { TimePickerCardConfig, Layout, HourMode } from './types';
+import { HourMode, Layout, TimePickerCardConfig } from './types';
 
 @customElement('time-picker-card-editor')
 export class TimePickerCardEditor extends LitElement implements LovelaceCardEditor {
