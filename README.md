@@ -94,9 +94,11 @@ layout:
 ```
 
 ### Dark theme, embedded layout
+
 ![Dark theme embedded](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/dark_embedded.png)
 
 ### Dark theme, thin layout
+
 ![Dark theme thin layout](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/dark_thin.png)
 
 ### With a custom lovelace theme
@@ -114,6 +116,7 @@ layout:
 | hour_mode         | `12` or `24` | **Optional** | Hour format. If `12`, card will show AM/PM picker                                                         | `24`                     |
 | hour_step         | number       | **Optional** | Hour change when clicking arrows                                                                          | `1`                      |
 | minute_step       | number       | **Optional** | Minute change when clicking arrows                                                                        | `5`                      |
+| delay             | number       | **Optional** | Delay in ms before updating entity                                                                        | `0`                      |
 | layout            | object       | **Optional** | Card Layout configuration                                                                                 | `none`                   |
 | hide              | object       | **Optional** | Hide object                                                                                               | `none`                   |
 | tap_action        | action       | **Optional** | Home assistant action to perform on tap                                                                   | `more-info`              |

@@ -44,6 +44,14 @@ views:
                   thin: true
                 hide:
                   name: true
+          - type: custom:time-picker-card
+            name: delayed
+            entity: input_datetime.test_date_time
+            delay: 1000
+            hour_mode: 12
+            layout:
+              hour_mode: single
+              thin: true
 
           - type: custom:time-picker-card
             entity: input_datetime.test_date_time

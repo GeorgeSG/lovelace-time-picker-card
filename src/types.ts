@@ -8,6 +8,7 @@ export interface TimePickerCardConfig extends LovelaceCardConfig {
   hour_step?: number;
   minute_step?: number;
   second_step?: number;
+  delay?: number;
   layout?: TimePickerLayoutConfig;
   hide?: TimePickerHideConfig;
   tap_action?: ActionConfig;

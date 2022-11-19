@@ -52,6 +52,8 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
   @property() private time!: Time;
   @property() private period!: Period;
 
+  private bounce: number | undefined;
+
   private get entity(): HassEntity | undefined {
     return this.hass.states[this.config.entity];
   }
@@ -197,20 +199,20 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
             <time-unit
               .unit=${this.time.hour}
               @stepChange=${this.onHourStepChange}
-              @update=${this.callHassService}
+              @update=${this.debouncedCallHassService}
             ></time-unit>
             <div class="time-separator">:</div>
             <time-unit
               .unit=${this.time.minute}
               @stepChange=${this.onMinuteStepChange}
-              @update=${this.callHassService}
+              @update=${this.debouncedCallHassService}
             ></time-unit>
             ${this.config.hide?.seconds === false
               ? html`<div class="time-separator">:</div>
                   <time-unit
                     .unit=${this.time.second}
                     @stepChange=${this.onSecondStepChange}
-                    @update=${this.callHassService}
+                    @update=${this.debouncedCallHassService}
                   ></time-unit>`
               : ''}
             ${this.shouldShowPeriod
@@ -248,22 +250,31 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
   private onPeriodToggle(): void {
     this.time.hour.togglePeriod();
-    this.callHassService();
+    this.debouncedCallHassService();
   }
 
   private onHourStepChange(event: CustomEvent): void {
     this.time.hourStep(event.detail.direction);
-    this.callHassService();
+    this.debouncedCallHassService();
   }
 
   private onMinuteStepChange(event: CustomEvent): void {
     this.time.minuteStep(event.detail.direction);
-    this.callHassService();
+    this.debouncedCallHassService();
   }
 
   private onSecondStepChange(event: CustomEvent): void {
     this.time.secondStep(event.detail.direction);
-    this.callHassService();
+    this.debouncedCallHassService();
+  }
+
+  private debouncedCallHassService(): void {
+    if (this.config.delay) {
+      clearTimeout(this.bounce);
+      this.bounce = setTimeout(() => this.callHassService(), this.config.delay, this);
+    } else {
+      this.callHassService();
+    }
   }
 
   private callHassService(): Promise<void> {
