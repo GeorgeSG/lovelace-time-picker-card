@@ -1,15 +1,8 @@
 import { computeDomain, HomeAssistant, LovelaceCard } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
-import {
-  css,
-  CSSResult,
-  customElement,
-  html,
-  LitElement,
-  property,
-  TemplateResult,
-} from 'lit-element';
-import { ClassInfo, classMap } from 'lit-html/directives/class-map';
+import { css, CSSResult, html, LitElement, TemplateResult } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
+import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import './components/time-period.component';
 import './components/time-unit.component';
 import {

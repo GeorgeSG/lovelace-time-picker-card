@@ -1,7 +1,7 @@
-import { html, TemplateResult } from 'lit-element';
-import { TimePickerCardConfig, TimePickerHideConfig } from './types';
 import { LovelaceCard } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
+import { html, TemplateResult } from 'lit';
+import { TimePickerCardConfig, TimePickerHideConfig } from './types';
 
 export class Partial {
   static error(error: string, origConfig: TimePickerCardConfig): TemplateResult {

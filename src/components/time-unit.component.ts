@@ -1,12 +1,5 @@
-import {
-  css,
-  CSSResult,
-  customElement,
-  html,
-  LitElement,
-  property,
-  TemplateResult,
-} from 'lit-element';
+import { LitElement, TemplateResult, html, CSSResult, css } from 'lit';
+import { customElement, property } from 'lit/decorators.js';
 import { TimeUnit } from '../models/time-unit';
 import { Direction } from '../types';
 
