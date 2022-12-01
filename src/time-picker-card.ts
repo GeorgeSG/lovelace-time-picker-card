@@ -110,7 +110,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     };
   }
 
-  private handleAction(ev: ActionHandlerEvent) {
+  private handleAction(ev: ActionHandlerEvent): void {
     handleAction(this, this.hass, this.config, ev.detail.action!);
   }
 

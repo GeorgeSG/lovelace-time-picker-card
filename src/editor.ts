@@ -121,7 +121,7 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
   @property({ type: Object }) hass!: HomeAssistant;
   @property() private config!: TimePickerCardConfig;
 
-  private computeLabel({ name }) {
+  private computeLabel({ name }): string {
     return NAME_TO_LABEL_MAP[name] || name;
   }
 
