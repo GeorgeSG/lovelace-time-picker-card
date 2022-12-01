@@ -121,6 +121,7 @@ layout:
 | align_controls | `left`, `center`, `right` | **Optional** | Horizontal alignment of the controls                                                               | `center` |
 | name           | `header`, `inside`        | **Optional** | Whether to show the name as a header or inside the card                                            | `header` |
 | embedded       | boolean                   | **Optional** | Render with embedded style - disables padding, box shadow, and card header                         | `false`  |
+| thin           | boolean                   | **Optional** | Render with reduced paddings                                                                       | `false`  |
 
 ### Hide Object
 
