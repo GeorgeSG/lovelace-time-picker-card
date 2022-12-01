@@ -1,37 +1,5 @@
 title: Home
 views:
-  - title: Grid
-    path: grid
-    cards:
-      - type: grid
-        cards:
-          - type: button
-            icon: mdi:reload
-            name: Theme
-            tap_action:
-              action: call-service
-              service: frontend.reload_themes
-          - type: custom:time-picker-card
-            entity: input_datetime.test_date_time
-            link_values: true
-            hour_mode: 12
-            hour_step: 2
-            minute_step: 3
-            layout:
-              hour_mode: single
-              name: inside
-            hide:
-              name: false
-          - type: entities
-            entities:
-              - input_datetime.test_date_time
-              - input_datetime.test_date_time
-              - input_datetime.test_date_time
-              - input_datetime.test_date_time
-              - input_datetime.test_date_time
-              - input_datetime.test_date_time
-
-
   - title: dev
     path: dev
     cards:
@@ -81,3 +49,32 @@ views:
                   hour_mode: single
                 hide:
                   name: false
+
+  - title: embedded
+    path: embedded
+    cards:
+      - type: vertical-stack
+        cards:
+
+          - type: entities
+            entities:
+              - input_datetime.test_date_time
+              - type: custom:time-picker-card
+                entity: input_datetime.test_date_time
+                name: Alarm time
+                hour_mode: 24
+                hour_step: 2
+                layout:
+                  embedded: true
+              - type: custom:time-picker-card
+                entity: input_datetime.test_date_time
+                hour_mode: 12
+                layout:
+                  hour_mode: single
+                hide:
+                  name: true
+              - type: custom:time-picker-card
+                entity: input_datetime.test_date_time
+                hour_mode: 12
+                layout:
+                  hour_mode: single
