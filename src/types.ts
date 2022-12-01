@@ -1,4 +1,4 @@
-import { LovelaceCardConfig } from 'custom-card-helpers';
+import { ActionConfig, LovelaceCardConfig } from 'custom-card-helpers';
 
 export interface TimePickerCardConfig extends LovelaceCardConfig {
   entity: string;
@@ -10,6 +10,9 @@ export interface TimePickerCardConfig extends LovelaceCardConfig {
   second_step?: number;
   layout?: TimePickerLayoutConfig;
   hide?: TimePickerHideConfig;
+  tap_action?: ActionConfig;
+  double_tap_action?: ActionConfig;
+  hold_action?: ActionConfig;
 }
 
 export type HourMode = 12 | 24 | undefined;

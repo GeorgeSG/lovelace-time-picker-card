@@ -17,6 +17,24 @@ views:
                 name: Alarm time
                 hour_mode: 24
                 hour_step: 2
+                tap_action:
+                  action: call-service
+                  service: logbook.log
+                  service_data:
+                    name: "Time picker card · Tap Action"
+                    message: "Debug"
+                double_tap_action:
+                  action: call-service
+                  service: logbook.log
+                  service_data:
+                    name: "Time picker card · Double Tap Action"
+                    message: "Debug"
+                hold_action:
+                  action: call-service
+                  service: logbook.log
+                  service_data:
+                    name: "Time picker card · Hold action"
+                    message: "Debug"
               - type: custom:time-picker-card
                 entity: input_datetime.test_date_time
                 hour_mode: 12
@@ -49,6 +67,17 @@ views:
                   hour_mode: single
                 hide:
                   name: false
+
+          - type: custom:time-picker-card
+            entity: input_datetime.test_date
+            link_values: true
+            hour_mode: 12
+            hour_step: 2
+            minute_step: 3
+            layout:
+              hour_mode: single
+            hide:
+              name: false
 
   - title: embedded
     path: embedded

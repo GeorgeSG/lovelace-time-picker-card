@@ -1,8 +1,16 @@
-import { computeDomain, HomeAssistant, LovelaceCard } from 'custom-card-helpers';
+import {
+  ActionHandlerEvent,
+  computeDomain,
+  handleAction,
+  hasAction,
+  HomeAssistant,
+  LovelaceCard,
+} from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
 import { css, CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
+import { actionHandler } from './action-handler-directive';
 import './components/time-period.component';
 import './components/time-unit.component';
 import {
@@ -18,7 +26,7 @@ import { Minute } from './models/minute';
 import { Second } from './models/second';
 import { Time } from './models/time';
 import { Partial } from './partials';
-import { Layout, Period, TimePickerCardConfig } from './types';
+import { Layout, Period, TimePickerCardConfig, TimePickerHideConfig } from './types';
 
 console.info(
   `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
@@ -97,6 +105,58 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     };
   }
 
+  private handleAction(ev: ActionHandlerEvent) {
+    handleAction(this, this.hass, this.config, ev.detail.action!);
+  }
+
+  private renderHeaderName(title: string): TemplateResult {
+    return html`<div
+      class="time-picker-header"
+      @action=${this.handleAction}
+      .actionHandler="${actionHandler({
+        hasHold: hasAction(this.config.hold_action),
+        hasDoubleClick: hasAction(this.config.double_tap_action),
+      })}"
+    >
+      ${title}
+    </div>`;
+  }
+
+  private renderNestedName(
+    name: string,
+    entity: HassEntity,
+    hide?: TimePickerHideConfig
+  ): TemplateResult {
+    const icon = html`<state-badge
+      class="entity-icon"
+      .stateObj=${entity}
+      @action=${this.handleAction}
+      .actionHandler="${actionHandler({
+        hasHold: hasAction(this.config.hold_action),
+        hasDoubleClick: hasAction(this.config.double_tap_action),
+      })}"
+    ></state-badge>`;
+    const label = html`<div
+      class="entity-name-inside"
+      @action=${this.handleAction}
+      .actionHandler="${actionHandler({
+        hasHold: hasAction(this.config!.hold_action),
+        hasDoubleClick: hasAction(this.config.double_tap_action),
+      })}"
+    >
+      ${name}
+    </div>`;
+
+    const visibleElements = [
+      { element: icon, visible: !hide?.icon },
+      { element: label, visible: !hide?.name },
+    ]
+      .filter(({ visible }) => visible)
+      .map(({ element }) => element);
+
+    return html`${visibleElements}`;
+  }
+
   render(): TemplateResult | null {
     if (!this.entity) {
       return Partial.error('Entity not found', this.config);
@@ -122,9 +182,11 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
     return html`
       <ha-card class=${classMap(this.haCardClass)}>
-        ${this.hasNameInHeader ? Partial.headerName(this.name!) : ''}
+        ${this.hasNameInHeader ? this.renderHeaderName(this.name!) : ''}
         <div class=${classMap(this.rowClass)}>
-          ${this.hasNameInside ? Partial.nestedName(this.name!, this.entity, this.config.hide) : ''}
+          ${this.hasNameInside
+            ? this.renderNestedName(this.name!, this.entity, this.config.hide)
+            : ''}
 
           <div class=${classMap(this.contentClass)}>
             <time-unit
@@ -281,8 +343,13 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
         justify-content: flex-end;
       }
 
+      .entity-icon {
+        cursor: pointer;
+      }
+
       .entity-name-inside {
         margin-left: 16px;
+        cursor: pointer;
       }
     `;
   }
