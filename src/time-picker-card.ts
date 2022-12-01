@@ -16,8 +16,12 @@ import './components/time-unit.component';
 import {
   CARD_SIZE,
   CARD_VERSION,
+  DEFAULT_HOUR_MODE,
+  DEFAULT_HOUR_STEP,
   DEFAULT_LAYOUT_ALIGN_CONTROLS,
   DEFAULT_LAYOUT_HOUR_MODE,
+  DEFAULT_LAYOUT_NAME,
+  DEFAULT_MINUTE_STEP,
   ENTITY_DOMAIN,
 } from './const';
 import './editor';
@@ -371,10 +375,18 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     const datetimeEntity = entities.find((entityId) => computeDomain(entityId) === ENTITY_DOMAIN);
 
     return {
-      entity: datetimeEntity || 'input_datetime.example_entity',
-      hour_mode: 24,
-      hour_step: 1,
-      minute_step: 5,
+      entity: datetimeEntity || '',
+      hour_mode: DEFAULT_HOUR_MODE,
+      hour_step: DEFAULT_HOUR_STEP,
+      minute_step: DEFAULT_MINUTE_STEP,
+      layout: {
+        hour_mode: DEFAULT_LAYOUT_HOUR_MODE,
+        align_controls: DEFAULT_LAYOUT_ALIGN_CONTROLS,
+        name: DEFAULT_LAYOUT_NAME,
+      },
+      hide: {
+        seconds: true,
+      },
     };
   }
 
