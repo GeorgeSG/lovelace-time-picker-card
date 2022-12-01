@@ -76,6 +76,7 @@ entity: input_datetime.alarm_time
 hour_mode: 12
 layout:
   hour_mode: single
+  align_controls: right
 hide:
   name: true
 ```
@@ -89,8 +90,14 @@ type: 'custom:time-picker-card'
 entity: input_datetime.alarm_time
 layout:
   name: inside
-  align_controls: right
+  align_controls: center
 ```
+
+### Dark theme, embedded layout
+![Dark theme embedded](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/dark_embedded.png)
+
+### Dark theme, thin layout
+![Dark theme thin layout](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/dark_thin.png)
 
 ### With a custom lovelace theme
 
