@@ -7,10 +7,12 @@ import { ActionHandlerDetail, ActionHandlerOptions } from 'custom-card-helpers/d
 const isTouch =
   'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.maxTouchPoints > 0;
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 interface ActionHandler extends HTMLElement {
   holdTime: number;
   bind(element: Element, options): void;
 }
+
 interface ActionHandlerElement extends HTMLElement {
   actionHandler?: boolean;
 }
@@ -21,6 +23,7 @@ declare global {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 class ActionHandler extends HTMLElement implements ActionHandler {
   public holdTime = 500;
 
@@ -60,9 +63,9 @@ class ActionHandler extends HTMLElement implements ActionHandler {
             this.stopAnimation();
             this.timer = undefined;
           },
-          { passive: true }
+          { passive: true },
         );
-      }
+      },
     );
   }
 
@@ -182,7 +185,7 @@ const getActionHandler = (): ActionHandler => {
 
 export const actionHandlerBind = (
   element: ActionHandlerElement,
-  options?: ActionHandlerOptions
+  options?: ActionHandlerOptions,
 ): void => {
   const actionhandler: ActionHandler = getActionHandler();
   if (!actionhandler) {
@@ -201,5 +204,5 @@ export const actionHandler = directive(
 
     // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/explicit-function-return-type
     render(_options?: ActionHandlerOptions) {}
-  }
+  },
 );
