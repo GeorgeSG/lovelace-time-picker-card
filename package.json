@@ -28,7 +28,7 @@
   "dependencies": {
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^8.0.0",
-    "lit": "^2.4.0"
+    "lit": "^2.8.0"
   },
   "devDependencies": {
     "@el3um4s/rollup-plugin-terser": "^1.0.2",
