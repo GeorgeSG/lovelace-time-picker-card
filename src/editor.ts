@@ -18,14 +18,16 @@ const NAME_TO_LABEL_MAP = {
   seconds: 'Seconds',
 };
 
+type FormSchemaEntry = Record<string, unknown>;
+
 // The entity_name selector, which lets users compose a name out of registry
 // parts, was added in HA 2025.11. Older versions fall back to a plain text field.
-const nameSchema = (hass: HomeAssistant) =>
+const nameSchema = (hass: HomeAssistant): FormSchemaEntry =>
   supportsEntityNameSelector(hass)
     ? { name: 'name', selector: { entity_name: {} }, context: { entity: 'entity' } }
     : { name: 'name', selector: { text: {} } };
 
-const schema = (hass: HomeAssistant) => [
+const schema = (hass: HomeAssistant): FormSchemaEntry[] => [
   { name: 'entity', selector: { entity: { domain: 'input_datetime' } } },
   nameSchema(hass),
   {
