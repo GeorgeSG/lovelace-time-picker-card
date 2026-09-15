@@ -1,4 +1,5 @@
 import { HomeAssistant, LovelaceCardEditor } from 'custom-card-helpers';
+import { supportsEntityNameSelector } from './entity-name';
 import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { TimePickerCardConfig } from './types';
@@ -17,12 +18,18 @@ const NAME_TO_LABEL_MAP = {
   seconds: 'Seconds',
 };
 
-const SCHEMA = [
+type FormSchemaEntry = Record<string, unknown>;
+
+// The entity_name selector, which lets users compose a name out of registry
+// parts, was added in HA 2025.11. Older versions fall back to a plain text field.
+const nameSchema = (hass: HomeAssistant): FormSchemaEntry =>
+  supportsEntityNameSelector(hass)
+    ? { name: 'name', selector: { entity_name: {} }, context: { entity: 'entity' } }
+    : { name: 'name', selector: { text: {} } };
+
+const schema = (hass: HomeAssistant): FormSchemaEntry[] => [
   { name: 'entity', selector: { entity: { domain: 'input_datetime' } } },
-  {
-    name: 'name',
-    selector: { text: {} },
-  },
+  nameSchema(hass),
   {
     type: 'grid',
     schema: [
@@ -135,7 +142,7 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
       <ha-form
         .hass=${this.hass}
         .data=${this.config}
-        .schema=${SCHEMA}
+        .schema=${schema(this.hass)}
         .computeLabel=${this.computeLabel}
         @value-changed=${this.valueChanged}
       ></ha-form>

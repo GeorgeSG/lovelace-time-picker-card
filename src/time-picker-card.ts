@@ -11,6 +11,7 @@ import { css, CSSResult, html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { ClassInfo, classMap } from 'lit/directives/class-map.js';
 import { actionHandler } from './action-handler-directive';
+import { computeEntityName } from './entity-name';
 import './components/time-period.component';
 import './components/time-unit.component';
 import {
@@ -79,7 +80,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
   }
 
   private get name(): string | undefined {
-    return this.config.name || this.entity?.attributes.friendly_name;
+    return computeEntityName(this.hass, this.entity, this.config.name);
   }
 
   private get shouldShowPeriod(): boolean {

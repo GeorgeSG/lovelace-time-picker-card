@@ -111,7 +111,7 @@ layout:
 | ----------------- | ------------ | ------------ | --------------------------------------------------------------------------------------------------------- | ------------------------ |
 | type              | string       | **Required** | `custom:time-picker-card`                                                                                 |                          |
 | entity            | string       | **Required** | [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) entity with `has_time: true` |                          |
-| name              | string       | **Optional** | Card name                                                                                                 | Entity's `friendly_name` |
+| name              | string / list | **Optional** | Card name. Accepts a [structured name](#structured-names) on Home Assistant 2026.4 and later.             | Entity's name |
 | link_values       | boolean      | **Optional** | If enabled, will change hour when minutes overflow. E.g. will go from 11:55 to 12:00, instead of 11:00    | `false`                  |
 | hour_mode         | `12` or `24` | **Optional** | Hour format. If `12`, card will show AM/PM picker                                                         | `24`                     |
 | hour_step         | number       | **Optional** | Hour change when clicking arrows                                                                          | `1`                      |
@@ -155,6 +155,30 @@ you can use the following variables in your theme's config file:
 | time-picker-off-color                 | `var(--disabled-text-color)`   | AM / PM inactive color                                                                               |
 | time-picker-border-radius             | `var(--ha-card-border-radius)` | Border radius of the card                                                                            |
 | time-picker-control-padding           | `8px`                          | Padding for interactive elements. Increase for larger hitboxes of the controls. Example: `10px 12px` |
+
+### Structured names
+
+*Requires Home Assistant 2026.4 or later. On earlier versions a structured `name` falls back to the entity's friendly name.*
+
+Home Assistant composes an entity's display name out of its registry context
+(entity, device, area, floor) rather than one `friendly_name` string. `name` can
+be a list of those parts instead of a plain string, so it keeps following renames
+and matches what the built-in cards show:
+
+```yaml
+type: custom:time-picker-card
+entity: input_datetime.alarm
+name:
+  - type: area
+  - type: entity
+```
+
+Available part types are `entity`, `device`, `parent_device`, `area`, `floor`, and
+`text` (a literal, written as `{type: text, text: 'Alarm'}`). Parts that resolve to
+nothing are dropped. A plain string `name` keeps working exactly as before, and the
+visual editor offers both modes on Home Assistant 2025.11 and later.
+
+See the [Home Assistant developer documentation](https://developers.home-assistant.io/docs/frontend/data#hassformatentitynamestateobj-name-options) for details.
 
 ## Meta
 

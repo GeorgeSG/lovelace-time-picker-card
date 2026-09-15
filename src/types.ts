@@ -2,7 +2,7 @@ import { ActionConfig, LovelaceCardConfig } from 'custom-card-helpers';
 
 export interface TimePickerCardConfig extends LovelaceCardConfig {
   entity: string;
-  name?: string;
+  name?: EntityName;
   link_values?: boolean;
   hour_mode?: HourMode;
   hour_step?: number;
@@ -15,6 +15,13 @@ export interface TimePickerCardConfig extends LovelaceCardConfig {
   double_tap_action?: ActionConfig;
   hold_action?: ActionConfig;
 }
+
+/** A `name` option: a plain string, or name parts resolved from the registry. */
+export type EntityName = string | EntityNameItem | EntityNameItem[];
+
+export type EntityNameItem =
+  | { type: 'entity' | 'device' | 'parent_device' | 'area' | 'floor' }
+  | { type: 'text'; text: string };
 
 export type HourMode = 12 | 24 | undefined;
 
