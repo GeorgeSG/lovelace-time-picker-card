@@ -1,0 +1,12 @@
+# Test entities for the Time Picker Card dev dashboard (ui-lovelace.yaml).
+input_datetime:
+  test_date_time:
+    name: Test date time
+    has_date: true
+    has_time: true
+    initial: '2026-01-01 07:30:00'
+  test_date:
+    name: Test date (no time)
+    has_date: true
+    has_time: false
+    initial: '2026-01-01'

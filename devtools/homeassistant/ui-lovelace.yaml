@@ -6,7 +6,7 @@ views:
       - type: vertical-stack
         cards:
           - type: markdown
-            content: "# 🕰 Time Picker Card dev"
+            content: '# 🕰 Time Picker Card dev'
           - type: entities
             entities:
               - input_datetime.test_date_time
@@ -21,20 +21,20 @@ views:
                   action: call-service
                   service: logbook.log
                   service_data:
-                    name: "Time picker card · Tap Action"
-                    message: "Debug"
+                    name: 'Time picker card · Tap Action'
+                    message: 'Debug'
                 double_tap_action:
                   action: call-service
                   service: logbook.log
                   service_data:
-                    name: "Time picker card · Double Tap Action"
-                    message: "Debug"
+                    name: 'Time picker card · Double Tap Action'
+                    message: 'Debug'
                 hold_action:
                   action: call-service
                   service: logbook.log
                   service_data:
-                    name: "Time picker card · Hold action"
-                    message: "Debug"
+                    name: 'Time picker card · Hold action'
+                    message: 'Debug'
               - type: custom:time-picker-card
                 name: Hour mode 12, thin, single, hidden name
                 entity: input_datetime.test_date_time
@@ -60,7 +60,7 @@ views:
               thin: true
           - type: custom:time-picker-card
             entity: input_datetime.test_date_time
-            name: Hidden seconds
+            name: Shown seconds
             hide:
               seconds: false
 
@@ -120,7 +120,6 @@ views:
     cards:
       - type: vertical-stack
         cards:
-
           - type: entities
             entities:
               - input_datetime.test_date_time

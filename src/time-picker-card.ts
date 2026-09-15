@@ -36,7 +36,7 @@ import { Layout, Period, TimePickerCardConfig, TimePickerHideConfig } from './ty
 console.info(
   `%c  TIME-PICKER-CARD  \n%c  Version ${CARD_VERSION}    `,
   'color: orange; font-weight: bold; background: black',
-  'color: white; font-weight: bold; background: dimgray'
+  'color: white; font-weight: bold; background: dimgray',
 );
 
 window.customCards = window.customCards || [];
@@ -133,7 +133,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
   private renderNestedName(
     name: string,
     entity: HassEntity,
-    hide?: TimePickerHideConfig
+    hide?: TimePickerHideConfig,
   ): TemplateResult {
     const icon = html`<state-badge
       class="entity-icon"
@@ -177,7 +177,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     if (!this.entity.attributes.has_time) {
       return Partial.error(
         `You must set an ${ENTITY_DOMAIN} entity that sets has_time: true`,
-        this.config
+        this.config,
       );
     }
 
@@ -192,9 +192,11 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
       <ha-card class=${classMap(this.haCardClass)}>
         ${this.hasNameInHeader ? this.renderHeaderName(this.name!) : ''}
         <div class=${classMap(this.rowClass)}>
-          ${this.hasNameInside
-            ? this.renderNestedName(this.name!, this.entity, this.config.hide)
-            : ''}
+          ${
+            this.hasNameInside
+              ? this.renderNestedName(this.name!, this.entity, this.config.hide)
+              : ''
+          }
 
           <div class=${classMap(this.contentClass)}>
             <time-unit
@@ -208,28 +210,32 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
               @stepChange=${this.onMinuteStepChange}
               @update=${this.debouncedCallHassService}
             ></time-unit>
-            ${this.config.hide?.seconds === false
-              ? html`<div class="time-separator">:</div>
-                  <time-unit
-                    .unit=${this.time.second}
-                    @stepChange=${this.onSecondStepChange}
-                    @update=${this.debouncedCallHassService}
-                  ></time-unit>`
-              : ''}
-            ${this.shouldShowPeriod
-              ? html`<time-period
-                  .period=${this.period}
-                  .mode=${this.config.layout?.hour_mode ?? DEFAULT_LAYOUT_HOUR_MODE}
-                  @toggle=${this.onPeriodToggle}
-                ></time-period>`
-              : ''}
+            ${
+              this.config.hide?.seconds === false
+                ? html`<div class="time-separator">:</div>
+                    <time-unit
+                      .unit=${this.time.second}
+                      @stepChange=${this.onSecondStepChange}
+                      @update=${this.debouncedCallHassService}
+                    ></time-unit>`
+                : ''
+            }
+            ${
+              this.shouldShowPeriod
+                ? html`<time-period
+                    .period=${this.period}
+                    .mode=${this.config.layout?.hour_mode ?? DEFAULT_LAYOUT_HOUR_MODE}
+                    @toggle=${this.onPeriodToggle}
+                  ></time-period>`
+                : ''
+            }
           </div>
         </div>
       </ha-card>
     `;
   }
 
-  setConfig(config): void {
+  setConfig(config: TimePickerCardConfig): void {
     if (!config) {
       throw new Error('Invalid configuration');
     }
@@ -382,7 +388,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
   static getStubConfig(
     _: HomeAssistant,
-    entities: Array<string>
+    entities: Array<string>,
   ): Omit<TimePickerCardConfig, 'type'> {
     const datetimeEntity = entities.find((entityId) => computeDomain(entityId) === ENTITY_DOMAIN);
 

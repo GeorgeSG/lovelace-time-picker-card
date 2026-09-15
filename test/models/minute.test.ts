@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { Minute } from '../../src/models/minute';
 import { Direction } from '../../src/types';
 

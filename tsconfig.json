@@ -1,18 +1,25 @@
 {
+  // TypeScript stays on the 6.0 line: typescript-eslint declares a peer range of
+  // >=4.8.4 <6.1.0, and @rollup/plugin-typescript needs the JS compiler API
+  // that the native (7.x) compiler does not expose yet.
   "compilerOptions": {
-    "target": "es2017",
-    "module": "esnext",
-    "moduleResolution": "node",
-    "lib": ["es2017", "dom", "dom.iterable"],
+    "target": "ES2021",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2021", "DOM", "DOM.Iterable"],
     "noEmit": true,
+    "strict": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "strict": true,
-    "noImplicitAny": false,
     "skipLibCheck": true,
     "resolveJsonModule": true,
+    "isolatedModules": true,
+    // Lit reactive properties rely on TypeScript's legacy decorators. Keep
+    // useDefineForClassFields off: it defaults to true for target >= ES2022 and
+    // then class fields silently shadow the accessors that @property() installs.
     "experimentalDecorators": true,
-    "allowSyntheticDefaultImports": true // for importing sinon in tests
-  }
+    "useDefineForClassFields": false
+  },
+  "include": ["src", "test", "vitest.config.ts"]
 }

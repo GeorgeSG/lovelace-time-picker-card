@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { Second } from '../../src/models/second';
 import { Direction } from '../../src/types';
 

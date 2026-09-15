@@ -41,7 +41,7 @@ type HassWithEntityNames = HomeAssistant & {
 export function computeEntityName(
   hass: HomeAssistant,
   stateObj: HassEntity | undefined,
-  name: EntityName | undefined
+  name: EntityName | undefined,
 ): string | undefined {
   const configuredName = typeof name === 'string' ? name : undefined;
 

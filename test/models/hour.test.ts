@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'vitest';
 import { Hour } from '../../src/models/hour';
 import { Direction } from '../../src/types';
 import { DEFAULT_HOUR_STEP } from '../../src/const';

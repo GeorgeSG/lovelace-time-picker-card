@@ -4,21 +4,24 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   release:
     name: Build and upload
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
       - name: Build time-picker-card.js
         run: |
-          npm install
+          npm ci
           npm run build
-
       - name: Upload to release
-        uses: shopify/upload-to-release@1.0.0
-        with:
-          name: time-picker-card.js
-          path: dist/time-picker-card.js
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release upload "${{ github.event.release.tag_name }}" dist/time-picker-card.js --clobber
+        env:
+          GH_TOKEN: ${{ github.token }}

@@ -8,7 +8,11 @@ import { TimeUnit } from './time-unit';
 export class Hour extends TimeUnit {
   private static readonly VALUE_LIMIT = 24;
 
-  constructor(value: number, step = DEFAULT_HOUR_STEP, private hourMode?: HourMode) {
+  constructor(
+    value: number,
+    step = DEFAULT_HOUR_STEP,
+    private hourMode?: HourMode,
+  ) {
     super(value, step, Hour.VALUE_LIMIT);
   }
 

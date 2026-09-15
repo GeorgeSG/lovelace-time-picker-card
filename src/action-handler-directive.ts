@@ -1,8 +1,7 @@
 import { noChange } from 'lit';
 import { AttributePart, directive, Directive, DirectiveParameters } from 'lit/directive.js';
 
-import { fireEvent } from 'custom-card-helpers';
-import { ActionHandlerDetail, ActionHandlerOptions } from 'custom-card-helpers/dist/types';
+import { ActionHandlerDetail, ActionHandlerOptions, fireEvent } from 'custom-card-helpers';
 
 const isTouch =
   'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.maxTouchPoints > 0;
@@ -10,7 +9,7 @@ const isTouch =
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging
 interface ActionHandler extends HTMLElement {
   holdTime: number;
-  bind(element: Element, options): void;
+  bind(element: Element, options?: ActionHandlerOptions): void;
 }
 
 interface ActionHandlerElement extends HTMLElement {
@@ -69,7 +68,7 @@ class ActionHandler extends HTMLElement implements ActionHandler {
     );
   }
 
-  public bind(element: ActionHandlerElement, options): void {
+  public bind(element: ActionHandlerElement, options: ActionHandlerOptions = {}): void {
     if (element.actionHandler) {
       return;
     }
@@ -201,7 +200,7 @@ export const actionHandler = directive(
       return noChange;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-empty-function, @typescript-eslint/no-unused-vars, @typescript-eslint/explicit-function-return-type
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/explicit-function-return-type
     render(_options?: ActionHandlerOptions) {}
   },
 );

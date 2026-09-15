@@ -4,7 +4,7 @@ import { html, LitElement, TemplateResult } from 'lit';
 import { customElement, property } from 'lit/decorators.js';
 import { TimePickerCardConfig } from './types';
 
-const NAME_TO_LABEL_MAP = {
+const NAME_TO_LABEL_MAP: Record<string, string> = {
   entity: 'input_datetime entity id',
   name: 'Name',
   hour_step: 'Hour step',
@@ -128,7 +128,7 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
   @property({ type: Object }) hass!: HomeAssistant;
   @property() private config!: TimePickerCardConfig;
 
-  private computeLabel({ name }): string {
+  private computeLabel({ name }: { name: string }): string {
     return NAME_TO_LABEL_MAP[name] || name;
   }
 
@@ -149,7 +149,7 @@ export class TimePickerCardEditor extends LitElement implements LovelaceCardEdit
     `;
   }
 
-  setConfig(config): void {
+  setConfig(config: TimePickerCardConfig): void {
     this.config = config;
   }
 

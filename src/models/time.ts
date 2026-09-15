@@ -8,7 +8,7 @@ export class Time {
     public hour: Hour,
     public minute: Minute,
     public second: Second,
-    private _linkValues: boolean = false
+    private _linkValues: boolean = false,
   ) {}
 
   hourStep(direction: Direction): void {

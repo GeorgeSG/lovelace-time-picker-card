@@ -19,7 +19,11 @@ export abstract class TimeUnit {
    * @param _step how much to increase / decrease the value when step-changing
    * @param _limit value upper limit
    */
-  constructor(private _value: number, protected _step: number, protected _limit: number) {}
+  constructor(
+    private _value: number,
+    protected _step: number,
+    protected _limit: number,
+  ) {}
 
   get value(): number {
     return this._value;
@@ -40,7 +44,11 @@ export abstract class TimeUnit {
    * @param direction
    */
   stepUpdate(direction: Direction, step: number = this._step): void {
-    direction === Direction.UP ? this.increment(step) : this.decrement(step);
+    if (direction === Direction.UP) {
+      this.increment(step);
+    } else {
+      this.decrement(step);
+    }
   }
 
   toString(): string {
