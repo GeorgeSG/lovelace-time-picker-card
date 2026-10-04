@@ -17,6 +17,7 @@ class ErrorCardStub extends HTMLElement {
 customElements.define('hui-error-card', ErrorCardStub);
 
 const ENTITY_ID = 'input_datetime.alarm';
+const TIME_ENTITY_ID = 'time.irrigation_schema_1_start_time';
 
 /** YAML is untyped at runtime, so setConfig has to cope with shapes the type forbids. */
 const invalidConfig = (config: Record<string, unknown>): TimePickerCardConfig =>
@@ -29,6 +30,13 @@ const alarm = (hour: number, minute = 30, second = 0): HassEntity => ({
   last_changed: '',
   last_updated: '',
   context: { id: '', user_id: null, parent_id: null },
+});
+
+const timeEntity = (state = '07:30:00'): HassEntity => ({
+  ...alarm(7),
+  entity_id: TIME_ENTITY_ID,
+  state,
+  attributes: { friendly_name: 'Irrigation start' },
 });
 
 const createHass = (entity: HassEntity = alarm(7)): HomeAssistant =>
@@ -116,6 +124,28 @@ describe('time-picker-card', () => {
       expect(inputValues(card)).toEqual(['09', '45']);
     });
 
+    it('reads a time entity from its state and follows state updates', async () => {
+      card = await renderCard({ entity: TIME_ENTITY_ID }, createHass(timeEntity()));
+      expect(inputValues(card)).toEqual(['07', '30']);
+
+      card.hass = createHass(timeEntity('09:45:06'));
+      await settle(card);
+      expect(inputValues(card)).toEqual(['09', '45']);
+    });
+
+    it('rejects an unavailable time entity instead of rendering invalid numbers', async () => {
+      card = await renderCard({ entity: TIME_ENTITY_ID }, createHass(timeEntity('unavailable')));
+      const error = card.shadowRoot!.querySelector('hui-error-card') as ErrorCardStub;
+      expect(error.config?.error).toContain('HH:MM:SS');
+    });
+
+    it('rejects entities from other domains', async () => {
+      const entity = { ...alarm(7), entity_id: 'sensor.alarm' };
+      card = await renderCard({ entity: entity.entity_id }, createHass(entity));
+      const error = card.shadowRoot!.querySelector('hui-error-card') as ErrorCardStub;
+      expect(error.config?.error).toContain('input_datetime or time');
+    });
+
     it('renders an error card when the entity is missing', async () => {
       card = await renderCard({ entity: 'input_datetime.missing' });
       const error = card.shadowRoot!.querySelector('hui-error-card') as ErrorCardStub;
@@ -143,6 +173,18 @@ describe('time-picker-card', () => {
       });
     });
 
+    it('calls time.set_value with a zero-padded time for time entities', async () => {
+      const hass = createHass(timeEntity());
+      card = await renderCard({ entity: TIME_ENTITY_ID }, hass);
+      const hourUnit = card.shadowRoot!.querySelector('time-unit')!;
+      hourUnit.shadowRoot!.querySelector<HTMLElement>('.time-picker-icon')!.click();
+
+      expect(hass.callService).toHaveBeenCalledWith('time', 'set_value', {
+        entity_id: TIME_ENTITY_ID,
+        time: '08:30:00',
+      });
+    });
+
     it('debounces the service call when a delay is configured', async () => {
       vi.useFakeTimers();
       try {
@@ -167,5 +209,11 @@ describe('time-picker-card', () => {
         vi.useRealTimers();
       }
     });
+  });
+
+  it('offers time entities in the generated configuration', () => {
+    expect(
+      TimePickerCard.getStubConfig(createHass(), ['sensor.unknown', TIME_ENTITY_ID]).entity,
+    ).toBe(TIME_ENTITY_ID);
   });
 });

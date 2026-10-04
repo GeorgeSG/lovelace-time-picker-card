@@ -5,6 +5,7 @@ export const CARD_VERSION = pkg.version;
 export const CARD_SIZE = 3;
 
 export const ENTITY_DOMAIN = 'input_datetime';
+export const TIME_ENTITY_DOMAIN = 'time';
 
 // Config defaults
 export const DEFAULT_HOUR_STEP = 1;

@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { TimePickerCardConfig } from './types';
 
 const NAME_TO_LABEL_MAP: Record<string, string> = {
-  entity: 'input_datetime entity id',
+  entity: 'Time or input_datetime entity id',
   name: 'Name',
   hour_step: 'Hour step',
   minute_step: 'Minute step',
@@ -28,7 +28,7 @@ const nameSchema = (hass: HomeAssistant): FormSchemaEntry =>
     : { name: 'name', selector: { text: {} } };
 
 const schema = (hass: HomeAssistant): FormSchemaEntry[] => [
-  { name: 'entity', selector: { entity: { domain: 'input_datetime' } } },
+  { name: 'entity', selector: { entity: { domain: ['input_datetime', 'time'] } } },
   nameSchema(hass),
   {
     type: 'grid',
