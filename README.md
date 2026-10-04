@@ -66,7 +66,7 @@ hide:
   name: true
 ```
 
-### Time entity
+### `time` entity
 
 ```yaml
 type: custom:time-picker-card

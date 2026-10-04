@@ -17,7 +17,7 @@ class ErrorCardStub extends HTMLElement {
 customElements.define('hui-error-card', ErrorCardStub);
 
 const ENTITY_ID = 'input_datetime.alarm';
-const TIME_ENTITY_ID = 'time.irrigation_schema_1_start_time';
+const TIME_ENTITY_ID = 'time.alarm_time';
 
 /** YAML is untyped at runtime, so setConfig has to cope with shapes the type forbids. */
 const invalidConfig = (config: Record<string, unknown>): TimePickerCardConfig =>
@@ -36,7 +36,7 @@ const timeEntity = (state = '07:30:00'): HassEntity => ({
   ...alarm(7),
   entity_id: TIME_ENTITY_ID,
   state,
-  attributes: { friendly_name: 'Irrigation start' },
+  attributes: { friendly_name: 'Alarm time' },
 });
 
 const createHass = (entity: HassEntity = alarm(7)): HomeAssistant =>

@@ -5,7 +5,7 @@ import { customElement, property } from 'lit/decorators.js';
 import { TimePickerCardConfig } from './types';
 
 const NAME_TO_LABEL_MAP: Record<string, string> = {
-  entity: 'Time or input_datetime entity id',
+  entity: 'time or input_datetime entity id',
   name: 'Name',
   hour_step: 'Hour step',
   minute_step: 'Minute step',

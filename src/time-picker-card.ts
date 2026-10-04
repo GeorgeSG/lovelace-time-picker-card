@@ -192,7 +192,7 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     if (domain === TIME_ENTITY_DOMAIN) {
       const match = /^(\d{2}):(\d{2}):(\d{2})$/.exec(this.entity.state);
       if (!match || Number(match[1]) > 23 || Number(match[2]) > 59 || Number(match[3]) > 59) {
-        return Partial.error('Time entity has no valid HH:MM:SS value', this.config);
+        return Partial.error('The time entity has no valid HH:MM:SS value', this.config);
       }
       [hour, minute, second] = match.slice(1).map(Number);
     } else {
