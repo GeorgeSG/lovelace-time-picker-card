@@ -11,7 +11,7 @@
 
 This is a Time Picker Card for [Home Assistant](https://www.home-assistant.io/)'s [Lovelace UI](https://www.home-assistant.io/lovelace).
 
-Requires an [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) that has time (`has_time: true`).
+Supports a [Time](https://www.home-assistant.io/integrations/time/) entity or an [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) entity that has time (`has_time: true`).
 
 ## Installation
 
@@ -66,6 +66,16 @@ hide:
   name: true
 ```
 
+### `time` entity
+
+```yaml
+type: custom:time-picker-card
+entity: time.alarm_time
+minute_step: 5
+```
+
+The card reads the time entity's `HH:MM:SS` state and updates it using `time.set_value`.
+
 ### Custom config - hidden card name, 12 hour mode with a "single" hour mode picker
 
 ![Default theme with single hour mode](https://raw.githubusercontent.com/GeorgeSG/lovelace-time-picker-card/master/examples/single_hour_mode.png)
@@ -107,22 +117,22 @@ layout:
 
 ## Options
 
-| Name              | Type          | Requirement  | Description                                                                                               | Default       |
-| ----------------- | ------------- | ------------ | --------------------------------------------------------------------------------------------------------- | ------------- |
-| type              | string        | **Required** | `custom:time-picker-card`                                                                                 |               |
-| entity            | string        | **Required** | [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) entity with `has_time: true` |               |
-| name              | string / list | **Optional** | Card name. Accepts a [structured name](#structured-names) on Home Assistant 2026.4 and later.             | Entity's name |
-| link_values       | boolean       | **Optional** | If enabled, will change hour when minutes overflow. E.g. will go from 11:55 to 12:00, instead of 11:00    | `false`       |
-| hour_mode         | `12` or `24`  | **Optional** | Hour format. If `12`, card will show AM/PM picker                                                         | `24`          |
-| hour_step         | number        | **Optional** | Hour change when clicking arrows                                                                          | `1`           |
-| minute_step       | number        | **Optional** | Minute change when clicking arrows                                                                        | `5`           |
-| second_step       | number        | **Optional** | Second change when clicking arrows (only with `hide.seconds: false`)                                      | `5`           |
-| delay             | number        | **Optional** | Delay in ms before updating entity                                                                        | `0`           |
-| layout            | object        | **Optional** | Card Layout configuration                                                                                 | `none`        |
-| hide              | object        | **Optional** | Hide object                                                                                               | `none`        |
-| tap_action        | action        | **Optional** | Home assistant action to perform on tap                                                                   | `more-info`   |
-| double_tap_action | action        | **Optional** | Home assistant action to perform on tap                                                                   | `more-info`   |
-| hold_action       | action        | **Optional** | Home assistant action to perform on tap                                                                   | `more-info`   |
+| Name              | Type          | Requirement  | Description                                                                                                                                                                  | Default       |
+| ----------------- | ------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| type              | string        | **Required** | `custom:time-picker-card`                                                                                                                                                    |               |
+| entity            | string        | **Required** | [Time](https://www.home-assistant.io/integrations/time/) entity or [Input Datetime](https://www.home-assistant.io/integrations/input_datetime/) entity with `has_time: true` |               |
+| name              | string / list | **Optional** | Card name. Accepts a [structured name](#structured-names) on Home Assistant 2026.4 and later.                                                                                | Entity's name |
+| link_values       | boolean       | **Optional** | If enabled, will change hour when minutes overflow. E.g. will go from 11:55 to 12:00, instead of 11:00                                                                       | `false`       |
+| hour_mode         | `12` or `24`  | **Optional** | Hour format. If `12`, card will show AM/PM picker                                                                                                                            | `24`          |
+| hour_step         | number        | **Optional** | Hour change when clicking arrows                                                                                                                                             | `1`           |
+| minute_step       | number        | **Optional** | Minute change when clicking arrows                                                                                                                                           | `5`           |
+| second_step       | number        | **Optional** | Second change when clicking arrows (only with `hide.seconds: false`)                                                                                                         | `5`           |
+| delay             | number        | **Optional** | Delay in ms before updating entity                                                                                                                                           | `0`           |
+| layout            | object        | **Optional** | Card Layout configuration                                                                                                                                                    | `none`        |
+| hide              | object        | **Optional** | Hide object                                                                                                                                                                  | `none`        |
+| tap_action        | action        | **Optional** | Home assistant action to perform on tap                                                                                                                                      | `more-info`   |
+| double_tap_action | action        | **Optional** | Home assistant action to perform on tap                                                                                                                                      | `more-info`   |
+| hold_action       | action        | **Optional** | Home assistant action to perform on tap                                                                                                                                      | `more-info`   |
 
 ### Layout Object
 

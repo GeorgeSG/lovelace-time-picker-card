@@ -24,6 +24,7 @@ import {
   DEFAULT_LAYOUT_NAME,
   DEFAULT_MINUTE_STEP,
   ENTITY_DOMAIN,
+  TIME_ENTITY_DOMAIN,
 } from './const';
 import './editor';
 import { Hour } from './models/hour';
@@ -43,7 +44,7 @@ window.customCards = window.customCards || [];
 window.customCards.push({
   type: 'time-picker-card',
   name: 'Time Picker Card',
-  description: 'A Time Picker card for setting the time value of Input Datetime entities.',
+  description: 'A Time Picker card for input_datetime and time entities.',
 });
 
 @customElement('time-picker-card')
@@ -170,18 +171,33 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
       return Partial.error('Entity not found', this.config);
     }
 
-    if (computeDomain(this.entity.entity_id) !== ENTITY_DOMAIN) {
-      return Partial.error(`You must set an ${ENTITY_DOMAIN} entity`, this.config);
+    const domain = computeDomain(this.entity.entity_id);
+    if (domain !== ENTITY_DOMAIN && domain !== TIME_ENTITY_DOMAIN) {
+      return Partial.error(
+        `You must set an ${ENTITY_DOMAIN} or ${TIME_ENTITY_DOMAIN} entity`,
+        this.config,
+      );
     }
 
-    if (!this.entity.attributes.has_time) {
+    if (domain === ENTITY_DOMAIN && !this.entity.attributes.has_time) {
       return Partial.error(
         `You must set an ${ENTITY_DOMAIN} entity that sets has_time: true`,
         this.config,
       );
     }
 
-    const { hour, minute, second } = this.entity!.attributes;
+    let hour: number;
+    let minute: number;
+    let second: number;
+    if (domain === TIME_ENTITY_DOMAIN) {
+      const match = /^(\d{2}):(\d{2}):(\d{2})$/.exec(this.entity.state);
+      if (!match || Number(match[1]) > 23 || Number(match[2]) > 59 || Number(match[3]) > 59) {
+        return Partial.error('The time entity has no valid HH:MM:SS value', this.config);
+      }
+      [hour, minute, second] = match.slice(1).map(Number);
+    } else {
+      ({ hour, minute, second } = this.entity.attributes);
+    }
     const hourInstance = new Hour(hour, this.config.hour_step, this.config.hour_mode);
     const minuteInstance = new Minute(minute, this.config.minute_step);
     const secondInstance = new Second(second, this.config.second_step);
@@ -286,13 +302,25 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
 
   private callHassService(): Promise<void> {
     if (!this.hass) {
-      throw new Error('Unable to update datetime');
+      throw new Error('Unable to update time');
     }
 
-    return this.hass.callService(ENTITY_DOMAIN, 'set_datetime', {
-      entity_id: this.entity!.entity_id,
-      time: this.time.value,
-    });
+    const domain = computeDomain(this.entity!.entity_id);
+    const time =
+      domain === TIME_ENTITY_DOMAIN
+        ? [this.time.hour.value, this.time.minute.value, this.time.second.value]
+            .map((value) => String(value).padStart(2, '0'))
+            .join(':')
+        : this.time.value;
+
+    return this.hass.callService(
+      domain,
+      domain === TIME_ENTITY_DOMAIN ? 'set_value' : 'set_datetime',
+      {
+        entity_id: this.entity!.entity_id,
+        time,
+      },
+    );
   }
 
   static get styles(): CSSResult {
@@ -390,7 +418,9 @@ export class TimePickerCard extends LitElement implements LovelaceCard {
     _: HomeAssistant,
     entities: Array<string>,
   ): Omit<TimePickerCardConfig, 'type'> {
-    const datetimeEntity = entities.find((entityId) => computeDomain(entityId) === ENTITY_DOMAIN);
+    const datetimeEntity = entities.find((entityId) =>
+      [ENTITY_DOMAIN, TIME_ENTITY_DOMAIN].includes(computeDomain(entityId)),
+    );
 
     return {
       entity: datetimeEntity || '',
